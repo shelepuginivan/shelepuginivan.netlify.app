@@ -1,10 +1,10 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Head, Html, Main, NextScript } from 'next/document'
 
 export default function Document() {
 	return (
 		<Html lang="ru">
-			<Head >
-				<title></title>
+			<Head>
+				<meta name='charset' content='UTF-8' />
 			</Head>
 			<body>
 				<Main />
