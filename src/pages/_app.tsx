@@ -5,6 +5,11 @@ import '@/assets/fonts/icomoon/style.css'
 
 import type { AppProps } from 'next/app'
 
+import Footer from '@/components/Footer/Footer'
+
 export default function App({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />
+	return <>
+		<Component {...pageProps} />
+		<Footer/>
+	</> 
 }
