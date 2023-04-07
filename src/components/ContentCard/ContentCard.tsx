@@ -6,7 +6,7 @@ import styles from './contentCard.module.sass'
 
 type PropsType = {
 	title: string
-	backgroundImage: Record<'src', string>
+	backgroundImage: Record<'src', string> | string
 	href: string
 }
 
@@ -15,15 +15,20 @@ const font = Nunito({
 	weight: '400'
 })
 
-const ContentCard: FC<PropsType> = ({ title, backgroundImage, href }) => {
+const ContentCard: FC<PropsType> = (props) => {
+	const backgroundImage = `url('${
+		typeof props.backgroundImage === 'string'
+			? props.backgroundImage
+			: props.backgroundImage.src}')`
+
 	return (
 		<Link
-			href={href}
+			href={props.href}
 			className={styles.cardWrapper}
-			style={{backgroundImage: `url('${backgroundImage?.src}')`}}
+			style={{backgroundImage}}
 		>
 			<div className={styles.card}>
-				<h1 className={font.className}>{title}</h1>
+				<h1 className={font.className}>{props.title}</h1>
 			</div>
 		</Link>
 	)
