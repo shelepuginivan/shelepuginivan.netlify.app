@@ -1,0 +1,34 @@
+@import 'src/styles/globals'
+
+.card
+	@extend .shadow
+	@extend .borderRadius
+	display: flex
+	align-items: stretch
+	height: fit-content
+	min-height: 200px
+	overflow: hidden
+
+	.img
+		min-height: 100%
+		width: 50%
+		background: no-repeat top left / cover
+
+	.content
+		display: flex
+		flex-direction: column
+		padding: 10px
+		align-items: center
+		justify-content: space-between
+
+	.badges
+		margin-block: 10px
+
+		*
+			margin-inline: 5px
+
+	nav a
+		text-decoration: none
+		color: black
+		font-size: xx-large
+		margin-inline: 10px
