@@ -1,16 +1,20 @@
+@import 'src/styles/globals'
+@import 'src/styles/variables'
+
 .cardWrapper
-	border-radius: 10px
+	@extend .shadow
+	@extend .borderRadius
 	background: no-repeat center / cover
 	display: block
 	text-decoration: none
 	color: black
 
 .card
+	@extend .borderRadius
 	display: flex
 	align-items: flex-end
 	justify-content: flex-end
 	padding: 15px
-	border-radius: 10px
-	background-color: rgba(255,255,255,.6)
+	background-color: $translucent-white
 	min-height: 200px
 	font-size: larger
