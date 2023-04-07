@@ -10,7 +10,7 @@ type PropsType = {
 	href: string
 }
 
-const font = Nunito({
+const nunito = Nunito({
 	subsets: ['latin'],
 	weight: '400'
 })
@@ -28,7 +28,7 @@ const ContentCard: FC<PropsType> = (props) => {
 			style={{backgroundImage}}
 		>
 			<div className={styles.card}>
-				<h1 className={font.className}>{props.title}</h1>
+				<h1 className={nunito.className}>{props.title}</h1>
 			</div>
 		</Link>
 	)
