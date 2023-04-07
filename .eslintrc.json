@@ -15,7 +15,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+		"simple-import-sort"
     ],
     "rules": {
         "indent": [
@@ -33,6 +34,8 @@
         "semi": [
             "error",
             "never"
-        ]
+        ],
+    	"simple-import-sort/imports": "error",
+    	"simple-import-sort/exports": "error"
     }
 }
