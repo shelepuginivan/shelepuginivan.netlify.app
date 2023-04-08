@@ -1,9 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(
+import {FeedbackService} from '@/utils/FeedbackService'
+
+const handler = async (
 	req: NextApiRequest,
 	res: NextApiResponse
-) {
+) => {
 	if (req.method !== 'POST') {
 		res.status(405).end()
 		return
@@ -36,3 +38,5 @@ export default function handler(
 
 
 }
+
+export default handler
