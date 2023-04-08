@@ -1,0 +1,16 @@
+@import 'src/styles/variables'
+
+.textArea
+	font-size: $input-font-size
+	resize: vertical
+	min-height: 100px
+	padding: 7px
+	outline: none
+	border-bottom: 2px solid darkgray
+	border-image-slice: 1
+
+.textArea:focus-within
+	border-image-source: $gradient
+
+	&::placeholder
+		color: $shade-3
