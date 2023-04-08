@@ -1,16 +1,18 @@
 import {Roboto_Flex} from 'next/font/google'
-import {FC, PropsWithChildren, ReactNode} from 'react'
+import {FC, ReactNode} from 'react'
 
 import {imgToCssUrl} from '@/utils/imgToCssUrl'
 
 import styles from './projectCard.module.sass'
 
 type PropsType = {
+	title: string
+	description: string
 	previewImage: string | Record<'src', string>
 	stack?: ReactNode,
 	githubLink?: string,
 	demoLink?: string
-} & PropsWithChildren
+}
 
 const font = Roboto_Flex({
 	subsets: ['cyrillic'],
@@ -24,7 +26,8 @@ const ProjectCard: FC<PropsType> = (props) => {
 		<div className={`${styles.card} ${font.className}`}>
 			<div className={styles.img} style={{backgroundImage: preview}} />
 			<div className={styles.content}>
-				{props.children}
+				<h2>{props.title}</h2>
+				<p>{props.description}</p>
 				<div className={styles.badges}>
 					{props.stack}
 				</div>
