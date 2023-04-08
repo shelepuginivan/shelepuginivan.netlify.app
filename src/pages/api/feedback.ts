@@ -34,9 +34,6 @@ const handler = async (
 			message: 'На сервере произошла ошибка! Повторите поыптку позже'
 		})
 	}
-
-
-
 }
 
 export default handler
