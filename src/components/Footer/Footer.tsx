@@ -1,4 +1,4 @@
-import {Nunito} from '@next/font/google'
+import {Nunito} from 'next/font/google'
 import {FC} from 'react'
 
 import bottomCurve from '@/assets/bottom-curve.svg'

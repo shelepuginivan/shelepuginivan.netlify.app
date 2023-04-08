@@ -1,4 +1,4 @@
-import {Nunito} from '@next/font/google'
+import {Nunito} from 'next/font/google'
 import Link from 'next/link'
 import {FC} from 'react'
 

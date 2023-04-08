@@ -1,4 +1,4 @@
-import {Roboto_Flex} from '@next/font/google'
+import {Roboto_Flex} from 'next/font/google'
 import {FC, PropsWithChildren, ReactNode} from 'react'
 
 import styles from './projectCard.module.sass'
