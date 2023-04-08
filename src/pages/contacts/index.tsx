@@ -3,10 +3,10 @@ import Social from '@/components/Social/Social'
 
 const Contacts = () => {
 	return (
-		<section>
+		<main>
 			<Social/>
 			<FeedbackForm/>
-		</section>
+		</main>
 	)
 }
 
