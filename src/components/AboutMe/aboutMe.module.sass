@@ -1,0 +1,24 @@
+@import 'src/styles/globals'
+@import 'src/styles/mixins'
+@import 'src/styles/variables'
+
+.about
+	@extend .borderRadius
+	@extend .container
+	@extend .shadow
+	display: flex
+	align-items: stretch
+	justify-content: space-between
+	height: 300px
+
+.text
+	padding: 40px
+
+	h2
+		@include gradientFont($gradient)
+		font-size: xx-large
+		margin-bottom: 25px
+
+	p
+		font-size: larger
+		width: 95%
