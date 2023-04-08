@@ -1,0 +1,38 @@
+@import 'src/styles/globals'
+@import 'src/styles/mixins'
+@import 'src/styles/variables'
+
+.social
+	@extend .borderRadius
+	@extend .container
+	@extend .shadow
+	padding: 40px
+	display: flex
+	align-items: stretch
+	justify-content: space-between
+
+	img
+		width: 200px
+		height: 200px
+
+	h1
+		@include gradientFont($gradient)
+		font-size: xx-large
+		margin-bottom: 25px
+
+	ul
+		font-size: large
+		list-style-type: ''
+
+		li
+			margin-block: 10px
+
+			i
+				color: gray
+
+	a
+		color: $link-blue
+		text-decoration: none
+
+		&:hover
+			text-decoration: underline
