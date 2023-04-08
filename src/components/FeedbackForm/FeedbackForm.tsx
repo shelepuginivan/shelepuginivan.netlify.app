@@ -68,10 +68,37 @@ const FeedbackForm: FC = () => {
 				className={`${styles.form} ${robotoFlex.className}`}
 				onSubmit={submitFeedback}
 			>
-				<Input className={robotoFlex.className} placeholder='Имя' type='text' id='firstname' name='firstname'/>
-				<Input className={robotoFlex.className} placeholder='Фамилия' type='text' id='lastname' name='lastname'/>
-				<Input className={robotoFlex.className} placeholder='Email' type='email' id='email' name='email'/>
-				<TextArea className={robotoFlex.className} placeholder='Введите ваше сообщение...' id='feedback' name='feedback'/>
+				<Input
+					className={robotoFlex.className}
+					name='firstname'
+					id='firstname'
+					type='text'
+					placeholder='Имя'
+					maxLength={64}
+				/>
+				<Input
+					className={robotoFlex.className}
+					name='lastname'
+					id='lastname'
+					type='text'
+					placeholder='Фамилия'
+					maxLength={128}
+				/>
+				<Input
+					className={robotoFlex.className}
+					id='email'
+					name='email'
+					type='email'
+					placeholder='Email'
+					maxLength={128}
+				/>
+				<TextArea
+					className={robotoFlex.className}
+					id='feedback'
+					name='feedback'
+					placeholder='Введите ваше сообщение (до 500 символов)...'
+					maxLength={500}
+				/>
 				<Button type='submit'>Отправить</Button>
 			</form>
 		</div>
