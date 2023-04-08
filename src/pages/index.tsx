@@ -7,7 +7,7 @@ import ContentCard from '@/components/ContentCard/ContentCard'
 import Container from '@/ui/Container/Container'
 import ResponsiveGrid from '@/ui/ResponsiveGrid/ResponsiveGrid'
 
-export default function Home() {
+const Home = () => {
 	return (
 		<main>
 			<AboutMe/>
@@ -22,3 +22,6 @@ export default function Home() {
 		</main>
 	)
 }
+
+export default Home
+
