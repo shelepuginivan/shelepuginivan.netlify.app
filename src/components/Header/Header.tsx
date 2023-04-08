@@ -1,10 +1,10 @@
+import {Nunito} from '@next/font/google'
 import Link from 'next/link'
 import {FC} from 'react'
 
 import topCurve from '@/assets/top-curve.svg'
 
 import styles from './header.module.sass'
-import {Nunito} from '@next/font/google'
 
 const nunito = Nunito({
 	subsets: ['cyrillic'],
@@ -18,7 +18,7 @@ const Header: FC = () => {
 	return (
 		<header className={styles.header}>
 			<div className={styles.content}>
-				<h1 className={nunito.className}>Шелепугин Иван</h1>
+				<Link href='/'><h1 className={nunito.className}>Шелепугин Иван</h1></Link>
 				<nav>
 					<Link href='/'><i className='icon-home'></i></Link>
 					{/*<Link href='/projects'></Link>*/}
