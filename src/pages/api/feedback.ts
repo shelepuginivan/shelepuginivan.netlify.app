@@ -18,7 +18,21 @@ export default function handler(
 		return
 	}
 
-	console.log(firstname, lastname, email, feedback)
+	try {
+		await FeedbackService.sendFeedback(
+			firstname,
+			lastname,
+			email,
+			feedback
+		)
 
-	res.status(200).end()
+		res.status(200).end()
+	} catch {
+		res.status(500).json({
+			message: 'На сервере произошла ошибка! Повторите поыптку позже'
+		})
+	}
+
+
+
 }
