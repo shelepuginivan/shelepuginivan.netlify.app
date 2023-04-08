@@ -96,7 +96,7 @@ const FeedbackForm: FC = () => {
 					className={robotoFlex.className}
 					id='feedback'
 					name='feedback'
-					placeholder='Введите ваше сообщение (до 500 символов)...'
+					placeholder='Введите ваше сообщение (до 500 символов)'
 					maxLength={500}
 				/>
 				<Button type='submit'>Отправить</Button>
