@@ -1,0 +1,21 @@
+@import 'src/styles/globals'
+@import 'src/styles/mixins'
+@import 'src/styles/variables'
+
+.button
+	@extend .transition
+	display: flex
+	align-items: center
+	justify-content: center
+	padding: 5px 15px
+	background-color: transparent
+	border: 2px solid
+	border-image-slice: 1
+	border-image-source: $gradient
+	color: $shade-3
+
+	&:hover
+		color: white
+		background: $gradient
+		outline: none
+
