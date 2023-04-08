@@ -1,6 +1,7 @@
 import {Roboto_Flex} from 'next/font/google'
-import {FC, ReactNode} from 'react'
+import {FC} from 'react'
 
+import Badge from '@/ui/Badge/Badge'
 import {imgToCssUrl} from '@/utils/imgToCssUrl'
 
 import styles from './projectCard.module.sass'
@@ -9,7 +10,7 @@ type PropsType = {
 	title: string
 	description: string
 	previewImage: string | Record<'src', string>
-	stack?: ReactNode,
+	badges?: string[],
 	githubLink?: string,
 	demoLink?: string
 }
@@ -29,7 +30,11 @@ const ProjectCard: FC<PropsType> = (props) => {
 				<h2>{props.title}</h2>
 				<p>{props.description}</p>
 				<div className={styles.badges}>
-					{props.stack}
+					{
+						props.badges?.map((badge, index) =>
+							<Badge key={index} href={badge}/>
+						)
+					}
 				</div>
 				<nav>
 					<a href={props.githubLink}><i className='icon-github'></i></a>
