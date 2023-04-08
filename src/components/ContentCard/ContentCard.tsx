@@ -2,11 +2,13 @@ import {Nunito} from 'next/font/google'
 import Link from 'next/link'
 import {FC} from 'react'
 
+import {imgToCssUrl} from '@/utils/imgToCssUrl'
+
 import styles from './contentCard.module.sass'
 
 type PropsType = {
 	title: string
-	backgroundImage: Record<'src', string> | string
+	backgroundImage: string | Record<'src', string>
 	href: string
 }
 
@@ -16,10 +18,7 @@ const nunito = Nunito({
 })
 
 const ContentCard: FC<PropsType> = (props) => {
-	const backgroundImage = `url('${
-		typeof props.backgroundImage === 'string'
-			? props.backgroundImage
-			: props.backgroundImage.src}')`
+	const backgroundImage = imgToCssUrl(props.backgroundImage)
 
 	return (
 		<Link

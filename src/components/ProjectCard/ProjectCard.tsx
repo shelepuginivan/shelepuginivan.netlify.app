@@ -1,10 +1,12 @@
 import {Roboto_Flex} from 'next/font/google'
 import {FC, PropsWithChildren, ReactNode} from 'react'
 
+import {imgToCssUrl} from '@/utils/imgToCssUrl'
+
 import styles from './projectCard.module.sass'
 
 type PropsType = {
-	previewImage: Record<'src', string> | string
+	previewImage: string | Record<'src', string>
 	stack?: ReactNode,
 	githubLink?: string,
 	demoLink?: string
@@ -16,7 +18,7 @@ const font = Roboto_Flex({
 })
 
 const ProjectCard: FC<PropsType> = (props) => {
-	const preview = `url('${typeof props.previewImage === 'string' ? props.previewImage : props.previewImage.src}')`
+	const preview = imgToCssUrl(props.previewImage)
 
 	return (
 		<div className={`${styles.card} ${font.className}`}>
