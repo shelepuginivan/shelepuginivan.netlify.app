@@ -14,8 +14,6 @@ const GalleryCategoriesList: FC = () => {
 	const secretCode = useRef<string>('')
 
 	const secretCodeEnter = (e: KeyboardEvent) => {
-		console.log(e.key)
-
 		switch (e.key) {
 		case 'Enter':
 			return setShowSecret(secretCode.current === process.env.NEXT_PUBLIC_UNLOCK_SECRET_PASSWORD)
