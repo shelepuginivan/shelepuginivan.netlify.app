@@ -1,11 +1,21 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+import {GalleryService} from '@/utils/GalleryService'
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const {category} = req.query
 
-	console.log(category)
+	if (typeof category !== 'string') {
+		res.status(400).json({
+			message: 'Некорректное значение параметра category'
+		})
 
-	res.status(200).end()
+		return
+	}
+
+	const galleryItems = await GalleryService.getGalleryItemsByCategory(category)
+
+	res.status(200).json(galleryItems)
 }
 
 export default handler
