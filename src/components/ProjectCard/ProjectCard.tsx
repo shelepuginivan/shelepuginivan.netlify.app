@@ -23,6 +23,14 @@ const font = Roboto_Flex({
 const ProjectCard: FC<PropsType> = (props) => {
 	const preview = imgToCssUrl(props.previewImage)
 
+	const githubLink = props.githubLink
+		? <a href={props.githubLink}><i className='icon-github'></i></a>
+		: null
+
+	const demoLink = props.demoLink
+		? <a href={props.demoLink}><i className='icon-demo'></i></a>
+		: null
+
 	return (
 		<div className={`${styles.card} ${font.className}`}>
 			<div className={styles.img} style={{backgroundImage: preview}} />
@@ -37,8 +45,8 @@ const ProjectCard: FC<PropsType> = (props) => {
 					}
 				</div>
 				<nav>
-					<a href={props.githubLink}><i className='icon-github'></i></a>
-					<a href={props.demoLink}><i className='icon-demo'></i></a>
+					{githubLink}
+					{demoLink}
 				</nav>
 			</div>
 		</div>
