@@ -1,5 +1,6 @@
 import {MongoClient} from 'mongodb'
 
+import {randomItem} from '@/utils/randomItem'
 import {GalleryItem} from '@/utils/types/GalleryItem'
 
 export class GalleryService {
@@ -29,5 +30,11 @@ export class GalleryService {
 		} finally {
 			await client.close()
 		}
+	}
+
+	static async getRandomImageUrlByCategory(category: string): Promise<string> {
+		const galleryItems = await GalleryService.getGalleryItemsByCategory(category)
+
+		return randomItem(galleryItems).url
 	}
 }
