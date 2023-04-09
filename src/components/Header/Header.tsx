@@ -16,7 +16,7 @@ const Header: FC = () => {
 				<Link href='/'><h1 className={nunito.className}>Шелепугин Иван</h1></Link>
 				<nav>
 					<Link href='/'><i className='icon-home'></i></Link>
-					{/*<Link href='/projects'></Link>*/}
+					<Link href='/projects'><i className='icon-projects'></i></Link>
 					<Link href='/blog'><i className='icon-book'></i></Link>
 					<Link href='/gallery'><i className='icon-gallery'></i></Link>
 					<Link href='/contacts'><i className='icon-contacts'></i></Link>
