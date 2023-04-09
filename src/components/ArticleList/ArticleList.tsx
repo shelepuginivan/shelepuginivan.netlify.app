@@ -2,7 +2,6 @@ import {FC, useEffect, useState} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ArticlePreview from '@/components/ArticlePreview/ArticlePreview'
-import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
 import {Article} from '@/utils/types/Article'
@@ -61,9 +60,9 @@ const ArticleList: FC = () => {
 			className={styles.list}
 			next={fetchArticlesOnCurrentPage}
 			hasMore={hasMore}
-			loader={<Center>
+			loader={<div className={styles.loaderWrapper}>
 				<Loader/>
-			</Center>}
+			</div>}
 			dataLength={articles.length}
 		>
 			{
