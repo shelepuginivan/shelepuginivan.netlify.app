@@ -3,7 +3,7 @@ import {MongoClient} from 'mongodb'
 import {Article} from '@/utils/types/Article'
 
 export class ArticleService {
-	static async getAllArticles(): Promise<Omit<Article, 'text'>[]> {
+	static async getAllArticles(page: number, articlesPerPage: number): Promise<Omit<Article, 'text'>[]> {
 		const client = new MongoClient(process.env.MONGO_URI as string)
 		await client.connect()
 
