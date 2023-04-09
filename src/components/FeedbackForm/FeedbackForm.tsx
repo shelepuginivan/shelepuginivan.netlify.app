@@ -27,7 +27,7 @@ const FeedbackForm: FC = () => {
 
 		type FormField = 'firstname' | 'lastname' | 'email' | 'feedback'
 
-		const form = e.target as Record<FormField, HTMLInputElement>
+		const form = e.target as unknown as Record<FormField, HTMLInputElement>
 
 		const data: Record<FormField, string> = {
 			firstname: form.firstname.value,

@@ -8,8 +8,8 @@ import Loader from '@/ui/Loader/Loader'
 import {Project} from '@/utils/types/Project'
 
 const ProjectsList: FC = () => {
-	const [projects, setProjects] = useState<Project[]>(null)
-	const [errorMessage, setErrorMessage] = useState<string>(null)
+	const [projects, setProjects] = useState<Project[] | null>(null)
+	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
 	useEffect(() => {
 		const fetchProjects = async () => {

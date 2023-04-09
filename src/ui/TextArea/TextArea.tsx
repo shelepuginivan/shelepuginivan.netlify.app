@@ -1,8 +1,8 @@
 import {FC, TextareaHTMLAttributes} from 'react'
 
-import {textArea} from './textArea.module.sass'
+import styles from './textArea.module.sass'
 
 const TextArea: FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = ({className, ...props}) =>
-	<textarea className={`${textArea} ${className}`} {...props}/>
+	<textarea className={`${styles.textArea} ${className}`} {...props}/>
 
 export default TextArea

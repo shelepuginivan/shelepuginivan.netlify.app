@@ -1,8 +1,8 @@
 import {FC} from 'react'
 
-import {loader} from './loader.module.sass'
+import styles from './loader.module.sass'
 
 const Loader: FC = () =>
-	<span className={loader}></span>
+	<span className={styles.loader}></span>
 
 export default Loader

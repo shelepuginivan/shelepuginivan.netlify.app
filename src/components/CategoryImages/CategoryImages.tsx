@@ -4,15 +4,15 @@ import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
 
-import {wrapper} from './categoryImages.module.sass'
+import styles from './categoryImages.module.sass'
 
 const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
-	const [images, setImages] = useState<string[]>(null)
+	const [images, setImages] = useState<string[] | null>(null)
 
 	useEffect(() => {
 		const fetchGalleryItems = async () => {
 			const res = await fetch(`/api/gallery/${category}`)
-			const json = await res.json()
+			const json: Record<'url', string>[] = await res.json()
 
 			setImages(json.map(item => item.url))
 		}
@@ -31,7 +31,7 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 	</Center>
 
 	return (
-		<div className={wrapper}>
+		<div className={styles.wrapper}>
 			{
 				images.map(
 					(image, index) => <img src={image} alt="" key={index}/>

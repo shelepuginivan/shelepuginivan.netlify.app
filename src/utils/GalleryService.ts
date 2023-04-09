@@ -5,10 +5,10 @@ import {GalleryItem} from '@/utils/types/GalleryItem'
 
 export class GalleryService {
 	static async getCategories(): Promise<string[]> {
-		const client = new MongoClient(process.env.MONGO_URI)
+		const client = new MongoClient(process.env.MONGO_URI as string)
 		await client.connect()
 
-		const database = client.db(process.env.MONGO_DB_NAME)
+		const database = client.db(process.env.MONGO_DB_NAME as string)
 
 		try {
 			return await database.collection('gallery').distinct('category')
@@ -18,15 +18,15 @@ export class GalleryService {
 	}
 
 	static async getGalleryItemsByCategory(category: string): Promise<GalleryItem[]> {
-		const client = new MongoClient(process.env.MONGO_URI)
+		const client = new MongoClient(process.env.MONGO_URI as string)
 		await client.connect()
 
-		const database = client.db(process.env.MONGO_DB_NAME)
+		const database = client.db(process.env.MONGO_DB_NAME as string)
 
 		try {
 			const galleryItems = await database.collection('gallery').find({category})
 
-			return await galleryItems.toArray() as GalleryItem[]
+			return await galleryItems.toArray() as unknown as GalleryItem[]
 		} finally {
 			await client.close()
 		}
