@@ -9,9 +9,14 @@ export class ArticleService {
 
 		try {
 			const database = client.db(process.env.MONGO_DB_NAME as string)
-			
-			const allArticles = await database.collection('article').find().toArray()
-			
+			const collection = await database.collection('article')
+			const allArticles = await collection
+				.find()
+				.skip((page - 1) * articlesPerPage)
+				.limit(articlesPerPage)
+				.sort('publicationDate', 'descending')
+				.toArray()
+
 			return allArticles.map(article => {
 				const {title, slug, publicationTime, previewUrl } = article as unknown as Article
 				
