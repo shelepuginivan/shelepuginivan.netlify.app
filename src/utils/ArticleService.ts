@@ -13,12 +13,12 @@ export class ArticleService {
 			const allArticles = await database.collection('article').find().toArray()
 			
 			return allArticles.map(article => {
-				const {title, slug, publicationDate, previewUrl } = article as unknown as Article
+				const {title, slug, publicationTime, previewUrl } = article as unknown as Article
 				
 				return {
 					title,
 					slug,
-					publicationDate,
+					publicationTime,
 					previewUrl
 				}
 			})
