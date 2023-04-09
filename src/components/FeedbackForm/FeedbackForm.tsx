@@ -36,23 +36,27 @@ const FeedbackForm: FC = () => {
 			feedback: form.feedback.value
 		}
 
-		const req = await fetch('/api/feedback', {
+		const res = await fetch('/api/feedback', {
 			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
-		
-		setSubmitted(req.status === 200)
-		setHeader(req.status === 200 ? 'Отправлено!' : 'Ошибка!')
 
-		try {
-			const json = await req.json()
-			const message = json.message
-			setMessage(message ?? '')
-		} catch {
-			return
+		const status = res.status
+		
+		setSubmitted(status === 200)
+		setHeader(status === 200 ? 'Отправлено!' : 'Ошибка!')
+
+		if (status !== 200) {
+			try {
+				const json = await res.json()
+				const message = json.message
+				setMessage(message ?? '')
+			} catch {
+				return
+			}
 		}
 	}
 
