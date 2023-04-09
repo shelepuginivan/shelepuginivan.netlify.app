@@ -1,14 +1,36 @@
-import {FC, useEffect, useState} from 'react'
+import {FC, useEffect, useRef, useState} from 'react'
 
 import ContentCard from '@/components/ContentCard/ContentCard'
 import Center from '@/ui/Center/Center'
 import Loader from '@/ui/Loader/Loader'
 import {GalleryCategory} from '@/utils/types/GalleryCategory'
 
-import {wrapper} from './galleryCategoriesList.module.sass'
+import styles from './galleryCategoriesList.module.sass'
 
 const GalleryCategoriesList: FC = () => {
-	const [galleryCategories, setGalleryCategories] = useState<GalleryCategory[]>(null)
+	const [galleryCategories, setGalleryCategories] = useState<GalleryCategory[] | null>(null)
+	const [showSecret, setShowSecret] = useState<boolean>(false)
+
+	const secretCode = useRef<string>('')
+
+	const secretCodeEnter = (e: KeyboardEvent) => {
+		console.log(e.key)
+
+		switch (e.key) {
+		case 'Enter':
+			return setShowSecret(secretCode.current === process.env.NEXT_PUBLIC_UNLOCK_SECRET_PASSWORD)
+		case 'Backspace':
+			secretCode.current = secretCode.current.slice(0, -1)
+			break
+		case 'Alt':
+		case 'Control':
+		case 'OS':
+		case 'Shift':
+			break
+		default:
+			secretCode.current += e.key
+		}
+	}
 	
 	useEffect(() => {
 		const fetchCategories = async () => {
@@ -20,7 +42,13 @@ const GalleryCategoriesList: FC = () => {
 		
 		fetchCategories()
 	}, [])
-	
+
+	useEffect(() => {
+		document.body.addEventListener('keydown', secretCodeEnter)
+
+		return () => document.body.removeEventListener('keydown', secretCodeEnter)
+	}, [])
+
 	if (!galleryCategories) {
 		return <Center>
 			<Loader/>
@@ -28,16 +56,20 @@ const GalleryCategoriesList: FC = () => {
 	}
 
 	return (
-		<div className={wrapper}>
+		<div className={styles.wrapper}>
 			{
 				galleryCategories.map(
-					(category, index) =>
-						<ContentCard
-							key={index}
-							title={category.name}
-							backgroundImage={category.previewUrl}
-							href={`/gallery/${category.name}`}
-						/>
+					(category, index) => {
+						if (showSecret || category.name !== process.env.NEXT_PUBLIC_SECRET_CATEGORY)
+							return <ContentCard
+								key={index}
+								title={category.name}
+								backgroundImage={category.previewUrl}
+								href={`/gallery/${category.name}`}
+							/>
+
+						return null
+					}
 				)
 			}
 		</div>
