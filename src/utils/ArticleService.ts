@@ -19,7 +19,7 @@ export class ArticleService {
 
 			return allArticles.map(article => {
 				const {title, slug, publicationTime, previewUrl } = article as unknown as Article
-				
+
 				return {
 					title,
 					slug,
@@ -30,5 +30,28 @@ export class ArticleService {
 		} finally {
 			await client.close()
 		}
+	}
+
+	static async getArticleBySlug(articleSlug: string): Promise<Article> {
+		const client = new MongoClient(process.env.MONGO_URI as string)
+		await client.connect()
+
+		try {
+			const database = client.db(process.env.MONGO_DB_NAME as string)
+			const article = await database.collection('article').findOne({slug: articleSlug})
+
+			const {title, previewUrl, publicationTime, slug, text} = article
+
+			return {
+				title,
+				previewUrl,
+				publicationTime,
+				slug,
+				text
+			}
+		} finally {
+			await client.close()
+		}
+
 	}
 }
