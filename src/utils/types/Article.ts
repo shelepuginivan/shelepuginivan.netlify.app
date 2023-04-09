@@ -3,5 +3,5 @@ export type Article = {
 	text: string
 	previewUrl: string
 	slug: string
-	publicationDate: number
+	publicationTime: number
 }
