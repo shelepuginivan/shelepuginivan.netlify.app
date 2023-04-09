@@ -1,38 +1,20 @@
-import {useEffect, useState} from 'react'
+import {Nunito} from 'next/font/google'
 
-import ProjectCard from '@/components/ProjectCard/ProjectCard'
-import {Project} from '@/utils/types/Project'
+import ProjectsList from '@/components/ProjectsList/ProjectsList'
+import Container from '@/ui/Container/Container'
+
+const nunito = Nunito({
+	subsets: ['cyrillic'],
+	weight: '300'
+})
 
 const Projects = () => {
-	const [projects, setProjects] = useState<Project[]>([])
-
-	useEffect(() => {
-		const fetchProjects = async () => {
-			const res = await fetch('/api/projects')
-			const body: Project[] = await res.json()
-
-			setProjects(body)
-		}
-
-		fetchProjects()
-	})
-	
-
 	return (
 		<main>
-			{
-				projects.map((project, index) => (
-					<ProjectCard
-						key={index}
-						title={project.title}
-						description={project.description}
-						previewImage={project.previewUrl}
-						githubLink={project.githubLink}
-						demoLink={project.demoLink}
-						stack={project.badgesUrls}
-					/>
-				))
-			}
+			<Container>
+				<h1 className={nunito.className}>Проекты</h1>
+			</Container>
+			<ProjectsList/>
 		</main>
 	)
 }
