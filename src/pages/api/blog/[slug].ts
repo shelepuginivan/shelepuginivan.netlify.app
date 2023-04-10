@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 
 import {ArticleService} from '@/utils/ArticleService'
+import {ServerException} from '@/utils/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const {slug} = req.query
@@ -11,10 +12,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		})
 		return
 	}
-	
-	const article = await ArticleService.getArticleBySlug(slug)
-	
-	res.status(200).json(article)
+
+	try {
+		const article = await ArticleService.getArticleBySlug(slug)
+
+		res.status(200).json(article)
+	} catch (e) {
+		if (e instanceof ServerException) {
+			res.status(e.status).json({message: e.message})
+		} else {
+			res.status(500).json({message: 'Внутренняя ошибка сервера'})
+		}
+	}
+
 }
 
 export default handler

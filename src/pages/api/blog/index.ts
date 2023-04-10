@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 
 import {ArticleService} from '@/utils/ArticleService'
+import {ServerException} from '@/utils/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	let {page, articlesPerPage} = req.query
@@ -11,12 +12,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (!articlesPerPage || typeof articlesPerPage !== 'string')
 		articlesPerPage = '10'
 
-	const articlesOnThisPage = await ArticleService.getAllArticles(
-		Number(page),
-		Number(articlesPerPage)
-	)
+	try {
+		const articlesOnThisPage = await ArticleService.getAllArticles(
+			Number(page),
+			Number(articlesPerPage)
+		)
+
+		res.status(200).json(articlesOnThisPage)
+	} catch (e) {
+		if (e instanceof ServerException) {
+			res.status(e.status).json({message: e.message})
+		} else {
+			res.status(500).json({message: 'Внутренняя ошибка сервера'})
+		}
+	}
+
 	
-	res.status(200).json(articlesOnThisPage)
 }
 
 export default handler

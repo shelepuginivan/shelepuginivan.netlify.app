@@ -1,13 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import {FeedbackService} from '@/utils/FeedbackService'
+import {ServerException} from '@/utils/ServerException'
 
 const handler = async (
 	req: NextApiRequest,
 	res: NextApiResponse
 ) => {
 	if (req.method !== 'POST') {
-		res.status(405).end()
+		res.status(405).json({
+			message: 'Неверный метод запроса'
+		})
 		return
 	}
 
@@ -29,10 +32,12 @@ const handler = async (
 		)
 
 		res.status(200).end()
-	} catch {
-		res.status(500).json({
-			message: 'На сервере произошла ошибка! Повторите поыптку позже'
-		})
+	} catch (e) {
+		if (e instanceof ServerException) {
+			res.status(e.status).json({message: e.message})
+		} else {
+			res.status(500).json({message: 'Внутренняя ошибка сервера'})
+		}
 	}
 }
 
