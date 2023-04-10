@@ -19,7 +19,7 @@ export class ArticleService {
 				.find()
 				.skip((page - 1) * articlesPerPage)
 				.limit(articlesPerPage)
-				.sort('publicationDate', 'descending')
+				.sort('publicationTime', 'descending')
 				.toArray()
 
 			return allArticles.map(article => {
