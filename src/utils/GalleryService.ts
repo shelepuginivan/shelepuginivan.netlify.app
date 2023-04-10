@@ -26,6 +26,10 @@ export class GalleryService {
 		try {
 			const galleryItems = await database.collection('gallery').find({category})
 
+			if (!galleryItems) {
+				throw ServerExceptionFactory.badRequest(`Категория ${category} не найдена`)
+			}
+
 			return await galleryItems.toArray() as unknown as GalleryItem[]
 		} finally {
 			await client.close()
