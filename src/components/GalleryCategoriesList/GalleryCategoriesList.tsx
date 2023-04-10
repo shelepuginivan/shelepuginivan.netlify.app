@@ -1,14 +1,18 @@
 import {FC, useEffect, useRef, useState} from 'react'
 
 import ContentCard from '@/components/ContentCard/ContentCard'
-import Center from '@/ui/Center/Center'
-import Loader from '@/ui/Loader/Loader'
+import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import {GalleryCategory} from '@/utils/types/GalleryCategory'
 
 import styles from './galleryCategoriesList.module.sass'
 
-const GalleryCategoriesList: FC = () => {
-	const [galleryCategories, setGalleryCategories] = useState<GalleryCategory[] | null>(null)
+type PropsType = {
+	errorMessage?: string
+	galleryCategories?: GalleryCategory[]
+}
+
+const GalleryCategoriesList: FC<PropsType> = (
+	{galleryCategories, errorMessage}) => {
 	const [showSecret, setShowSecret] = useState<boolean>(false)
 
 	const secretCode = useRef<string>('')
@@ -29,17 +33,6 @@ const GalleryCategoriesList: FC = () => {
 			secretCode.current += e.key
 		}
 	}
-	
-	useEffect(() => {
-		const fetchCategories = async () => {
-			const res = await fetch('/api/gallery')
-			const categories: GalleryCategory[] = await res.json()
-
-			setGalleryCategories(categories)
-		}
-		
-		fetchCategories()
-	}, [])
 
 	useEffect(() => {
 		document.body.addEventListener('keydown', secretCodeEnter)
@@ -47,10 +40,8 @@ const GalleryCategoriesList: FC = () => {
 		return () => document.body.removeEventListener('keydown', secretCodeEnter)
 	}, [])
 
-	if (!galleryCategories) {
-		return <Center>
-			<Loader/>
-		</Center>
+	if (errorMessage || !galleryCategories) {
+		return <ErrorMessage message={errorMessage ?? 'Не удалось загрузить категории'}/>
 	}
 
 	return (

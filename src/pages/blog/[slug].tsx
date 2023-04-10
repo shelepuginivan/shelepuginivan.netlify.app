@@ -1,50 +1,48 @@
-import {useRouter} from 'next/router'
-import {useEffect, useState} from 'react'
+import {GetServerSideProps} from 'next'
+import {FC} from 'react'
 
 import ArticleText from '@/components/ArticleText/ArticleText'
-import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
-import Loader from '@/ui/Loader/Loader'
+import {getHost} from '@/utils/getHost'
 import {Article} from '@/utils/types/Article'
 
+type PropsType = {
+	article?: Article
+	errorMessage?: string
+}
 
-const Article = () => {
-	const [article, setArticle] = useState<Article | null>(null)
-	const [errorMessage, setErrorMessage] = useState<string | null>(null)
-	
-	const router = useRouter()
-	const {slug} = router.query
+export const getServerSideProps: GetServerSideProps<PropsType> = async (context) => {
+	const {slug} = context.params
 
-	useEffect(() => {
-		const fetchArticle = async () => {
-			try {
-				const res = await fetch(`/api/blog/${slug}`)
-				const json = await res.json()
-
-				if (res.status >= 400) {
-					setErrorMessage((json as Record<'message', string>).message)
-				}
-
-				setArticle(json)
-
-			} catch (e) {
-				console.log(e)
+	if (typeof slug !== 'string') {
+		return {
+			props: {
+				errorMessage: 'Недопустимое значение параметра slug'
 			}
 		}
-		
-		fetchArticle()
-	}, [slug])
+	}
 
-	if (typeof slug !== 'string')
-		return <ErrorMessage message={`Недопустимое значение параметра ${slug}`}/>
+	const res = await fetch(`${getHost()}/api/blog/${slug}`)
+	const json = await res.json()
 
-	if (errorMessage)
-		return <ErrorMessage message={errorMessage}/>
+	if (res.status >= 400) {
+		return {
+			props: {
+				errorMessage: (json as Record<'message', string>).message
+			}
+		}
+	}
 
-	if (!article)
-		return <Center>
-			<Loader/>
-		</Center>
+	return {
+		props: {
+			article: json
+		}
+	}
+}
+
+const Article: FC<PropsType> = ({article, errorMessage}) => {
+	if (errorMessage || !article)
+		return <ErrorMessage message={errorMessage ?? 'Статья не найдена'}/>
 
 	return (
 		<main>
