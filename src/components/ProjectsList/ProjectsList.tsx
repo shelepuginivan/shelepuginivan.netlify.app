@@ -1,9 +1,10 @@
 import {FC} from 'react'
 
 import ProjectCard from '@/components/ProjectCard/ProjectCard'
-import Container from '@/ui/Container/Container'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import {Project} from '@/utils/types/Project'
+
+import styles from './projectsList.module.sass'
 
 type PropsType = {
 	projects?: Project[]
@@ -16,7 +17,7 @@ const ProjectsList: FC<PropsType> = ({projects, errorMessage}) => {
 	}
 
 	return (
-		<Container>
+		<div className={styles.list}>
 			{
 				projects.map((project, index) => (
 					<ProjectCard
@@ -30,7 +31,7 @@ const ProjectsList: FC<PropsType> = ({projects, errorMessage}) => {
 					/>
 				))
 			}
-		</Container>
+		</div>
 	)
 }
 
