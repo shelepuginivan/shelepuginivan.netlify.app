@@ -12,7 +12,17 @@ type PropsType = {
 }
 
 export const getServerSideProps: GetServerSideProps<PropsType> = async (context) => {
-	const {slug} = context.params
+	const params = context.params
+
+	if (!params) {
+		return {
+			props: {
+				errorMessage: 'Не удалось получить параметры запроса'
+			}
+		}
+	}
+
+	const {slug} = params
 
 	if (typeof slug !== 'string') {
 		return {
