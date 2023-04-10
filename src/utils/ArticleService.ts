@@ -1,14 +1,19 @@
 import {MongoClient} from 'mongodb'
 
+import {ServerExceptionFactory} from '@/utils/ServerExceptionFactory'
 import {Article} from '@/utils/types/Article'
 
 export class ArticleService {
 	static async getAllArticles(page: number, articlesPerPage: number): Promise<Omit<Article, 'text'>[]> {
-		const client = new MongoClient(process.env.MONGO_URI as string)
+		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
+			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+		}
+
+		const client = new MongoClient(process.env.MONGO_URI)
 		await client.connect()
 
 		try {
-			const database = client.db(process.env.MONGO_DB_NAME as string)
+			const database = client.db(process.env.MONGO_DB_NAME)
 			const collection = await database.collection('article')
 			const allArticles = await collection
 				.find()
@@ -33,11 +38,15 @@ export class ArticleService {
 	}
 
 	static async getArticleBySlug(articleSlug: string): Promise<Article> {
-		const client = new MongoClient(process.env.MONGO_URI as string)
+		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
+			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+		}
+		
+		const client = new MongoClient(process.env.MONGO_URI)
 		await client.connect()
 
 		try {
-			const database = client.db(process.env.MONGO_DB_NAME as string)
+			const database = client.db(process.env.MONGO_DB_NAME)
 			const article = await database.collection('article').findOne({slug: articleSlug})
 
 			const {title, previewUrl, publicationTime, slug, text} = article
