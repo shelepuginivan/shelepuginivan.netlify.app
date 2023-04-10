@@ -1,0 +1,64 @@
+@media screen and (max-width: 900px)
+	div.container, section.container
+		width: 80%
+
+@media screen and (max-width: 700px)
+	.about .text
+		padding: 20px 30px
+
+		h2
+			margin-bottom: 15px
+
+	.social img
+		display: none
+
+	.card
+		flex-direction: column
+
+		div.content
+			width: 100%
+
+		div.img
+			height: 300px
+			width: 100%
+
+@media screen and (max-width: 550px)
+	div.responsiveGrid,
+	section.responsiveGrid
+		grid-template-columns: 1fr
+
+	div.container,
+	section.container
+		width: auto
+		margin: 20px
+
+	.header
+		.content
+			flex-wrap: wrap
+
+			nav
+				margin-top: 20px
+
+	.about .text
+		padding-right: 0
+		padding-left: 20px
+
+		p
+			font-size: medium
+
+@media screen and (max-width: 455px)
+	.about
+		flex-direction: column
+
+	.card
+		div.img
+			height: 200px
+
+	.social
+		a
+			font-size: medium
+
+@media screen and (max-width: 350px)
+	.header nav a
+		font-size: x-large
+
