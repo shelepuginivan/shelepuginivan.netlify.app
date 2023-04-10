@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react'
+import {FC, useState} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ArticlePreview from '@/components/ArticlePreview/ArticlePreview'
@@ -8,28 +8,16 @@ import {Article} from '@/utils/types/Article'
 
 import styles from './articleList.module.sass'
 
-const ArticleList: FC = () => {
-	const [currentPage, setCurrentPage] = useState<number>(1)
-	const [articles, setArticles] = useState<Omit<Article, 'text'>[]>([])
-	const [errorMessage, setErrorMessage] = useState<string | null>(null)
+type PropsType = {
+	initialArticles: Omit<Article, 'text'>[] | []
+	errorMessage?: string
+}
+
+const ArticleList: FC<PropsType> = (props) => {
+	const [currentPage, setCurrentPage] = useState<number>(2)
+	const [articles, setArticles] = useState<Omit<Article, 'text'>[]>(props.initialArticles)
+	const [errorMessage, setErrorMessage] = useState<string | undefined>(props.errorMessage)
 	const [hasMore, setHasMore] = useState<boolean>(true)
-
-	useEffect(() => {
-		const initialFetch = async () => {
-			const res = await fetch(`/api/blog?page=${currentPage}`)
-
-			const json = await res.json()
-
-			if (res.status >= 400) {
-				return setErrorMessage((json as Record<'message', string>).message)
-			}
-
-			setArticles(json)
-			setCurrentPage(prev => prev + 1)
-		}
-
-		initialFetch()
-	}, [])
 
 	const fetchArticlesOnCurrentPage = async () => {
 		const res = await fetch(`/api/blog?page=${currentPage}`)
