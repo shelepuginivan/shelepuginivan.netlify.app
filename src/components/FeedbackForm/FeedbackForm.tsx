@@ -55,7 +55,7 @@ const FeedbackForm: FC = () => {
 				const message = json.message
 				setMessage(message ?? '')
 			} catch (e) {
-				if (e instanceof message) {
+				if (e instanceof Error) {
 					setMessage(e.message)
 				}
 			}
