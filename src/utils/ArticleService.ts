@@ -48,6 +48,9 @@ export class ArticleService {
 		try {
 			const database = client.db(process.env.MONGO_DB_NAME)
 			const article = await database.collection('article').findOne({slug: articleSlug})
+			
+			if (!article)
+				throw ServerExceptionFactory.badRequest('Статья не найдена')
 
 			const {title, previewUrl, publicationTime, slug, text} = article
 
@@ -61,6 +64,5 @@ export class ArticleService {
 		} finally {
 			await client.close()
 		}
-
 	}
 }
