@@ -13,10 +13,10 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 	useEffect(() => {
 		const fetchGalleryItems = async () => {
 			const res = await fetch(`/api/gallery/${category}`)
-			const json: Record<'url', string>[] = await res.json()
+			const json: Record<'url', string>[] & Record<'message', string> = await res.json()
 
 			if (res.status >= 400) {
-				setErrorMessage((json as Record<'message', string>).message)
+				setErrorMessage(json.message)
 			}
 
 			setImages(json.map(item => item.url))
