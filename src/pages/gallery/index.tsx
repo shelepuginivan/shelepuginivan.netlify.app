@@ -1,4 +1,5 @@
 import {Nunito} from 'next/font/google'
+import Head from 'next/head'
 import {FC} from 'react'
 
 import GalleryCategoriesList from '@/components/GalleryCategoriesList/GalleryCategoriesList'
@@ -11,12 +12,17 @@ const nunito = Nunito({
 
 const Gallery: FC = () => {
 	return (
-		<main>
-			<Container>
-				<h1 className={nunito.className}>Галерея</h1>
-				<GalleryCategoriesList/>
-			</Container>
-		</main>
+		<>
+			<Head>
+				<title>Галерея | Иван Шелепугин</title>
+			</Head>
+			<main>
+				<Container>
+					<h1 className={nunito.className}>Галерея</h1>
+					<GalleryCategoriesList/>
+				</Container>
+			</main>
+		</>
 	)
 }
 

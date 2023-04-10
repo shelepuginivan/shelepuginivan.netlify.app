@@ -1,4 +1,5 @@
 import {GetServerSideProps} from 'next'
+import Head from 'next/head'
 import {FC} from 'react'
 
 import ArticleText from '@/components/ArticleText/ArticleText'
@@ -55,9 +56,14 @@ const Article: FC<PropsType> = ({article, errorMessage}) => {
 		return <ErrorMessage message={errorMessage ?? 'Статья не найдена'}/>
 
 	return (
-		<main>
-			<ArticleText {...article} />
-		</main>
+		<>
+			<Head>
+				<title>{article.title} | Иван Шелепугин</title>
+			</Head>
+			<main>
+				<ArticleText {...article} />
+			</main>
+		</>
 	)
 }
 

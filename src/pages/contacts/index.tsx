@@ -1,12 +1,19 @@
+import Head from 'next/head'
+
 import FeedbackForm from '@/components/FeedbackForm/FeedbackForm'
 import Social from '@/components/Social/Social'
 
 const Contacts = () => {
 	return (
-		<main>
-			<Social/>
-			<FeedbackForm/>
-		</main>
+		<>
+			<Head>
+				<title>Контакты | Иван Шелепугин</title>
+			</Head>
+			<main>
+				<Social/>
+				<FeedbackForm/>
+			</main>
+		</>
 	)
 }
 
