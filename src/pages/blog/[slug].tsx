@@ -10,6 +10,7 @@ import {Article} from '@/utils/types/Article'
 
 const Article = () => {
 	const [article, setArticle] = useState<Article | null>(null)
+	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 	
 	const router = useRouter()
 	const {slug} = router.query
@@ -19,6 +20,11 @@ const Article = () => {
 			try {
 				const res = await fetch(`/api/blog/${slug}`)
 				const json = await res.json()
+
+				if (res.status >= 400) {
+					setErrorMessage((json as Record<'message', string>).message)
+				}
+
 				setArticle(json)
 
 			} catch (e) {
@@ -31,7 +37,10 @@ const Article = () => {
 
 	if (typeof slug !== 'string')
 		return <ErrorMessage message={`Недопустимое значение параметра ${slug}`}/>
-	
+
+	if (errorMessage)
+		return <ErrorMessage message={errorMessage}/>
+
 	if (!article)
 		return <Center>
 			<Loader/>

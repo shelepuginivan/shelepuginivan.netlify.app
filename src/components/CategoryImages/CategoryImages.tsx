@@ -8,11 +8,16 @@ import styles from './categoryImages.module.sass'
 
 const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 	const [images, setImages] = useState<string[] | null>(null)
+	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
 	useEffect(() => {
 		const fetchGalleryItems = async () => {
 			const res = await fetch(`/api/gallery/${category}`)
 			const json: Record<'url', string>[] = await res.json()
+
+			if (res.status >= 400) {
+				setErrorMessage((json as Record<'message', string>).message)
+			}
 
 			setImages(json.map(item => item.url))
 		}
@@ -20,15 +25,16 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 		fetchGalleryItems()
 	}, [])
 
-	if (typeof category !== 'string')
+	if (errorMessage)
+		return <ErrorMessage message={errorMessage}/>
+
+	if ((typeof category !== 'string') || images && images.length === 0)
 		return <ErrorMessage message={`Категория "${category}" не найдена`}/>
 
-	if (images && images.length === 0)
-		return <ErrorMessage message={`В категории "${category}" картинок нет`}/>
-
-	if (!images) return <Center>
-		<Loader/>
-	</Center>
+	if (!images)
+		return <Center>
+			<Loader/>
+		</Center>
 
 	return (
 		<div className={styles.wrapper}>

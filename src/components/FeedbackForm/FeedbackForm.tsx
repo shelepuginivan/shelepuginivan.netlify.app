@@ -46,16 +46,18 @@ const FeedbackForm: FC = () => {
 
 		const status = res.status
 		
-		setSubmitted(status === 200)
-		setHeader(status === 200 ? 'Отправлено!' : 'Ошибка!')
+		setSubmitted(status < 400)
+		setHeader(status < 400 ? 'Отправлено!' : 'Ошибка!')
 
-		if (status !== 200) {
+		if (status >= 400) {
 			try {
 				const json = await res.json()
 				const message = json.message
 				setMessage(message ?? '')
-			} catch {
-				return
+			} catch (e) {
+				if (e instanceof message) {
+					setMessage(e.message)
+				}
 			}
 		}
 	}

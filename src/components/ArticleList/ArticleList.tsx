@@ -20,9 +20,8 @@ const ArticleList: FC = () => {
 
 			const json = await res.json()
 
-			if (res.status !== 200) {
-				setErrorMessage((json as Record<'message', string>).message)
-				return
+			if (res.status >= 400) {
+				return setErrorMessage((json as Record<'message', string>).message)
 			}
 
 			setArticles(json)
@@ -37,8 +36,7 @@ const ArticleList: FC = () => {
 
 		const json = await res.json()
 
-
-		if (res.status !== 200) {
+		if (res.status >= 400) {
 			setErrorMessage((json as Record<'message', string>).message)
 			return
 		}

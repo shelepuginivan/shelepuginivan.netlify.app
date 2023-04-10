@@ -14,9 +14,13 @@ const ProjectsList: FC = () => {
 	useEffect(() => {
 		const fetchProjects = async () => {
 			const res = await fetch('/api/projects')
-			const body: Project[] = await res.json()
+			const json: Project[] = await res.json()
 
-			setProjects(body)
+			if (res.status >= 400) {
+				return setErrorMessage((json as Record<'message', string>).message)
+			}
+
+			setProjects(json)
 		}
 
 		fetchProjects()
