@@ -1,22 +1,18 @@
-import {FC, useState} from 'react'
+import {FC, useEffect, useState} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ArticlePreview from '@/components/ArticlePreview/ArticlePreview'
+import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
 import {Article} from '@/utils/types/Article'
 
 import styles from './articleList.module.sass'
 
-type PropsType = {
-	initialArticles: Omit<Article, 'text'>[] | []
-	errorMessage?: string
-}
-
-const ArticleList: FC<PropsType> = (props) => {
-	const [currentPage, setCurrentPage] = useState<number>(2)
-	const [articles, setArticles] = useState<Omit<Article, 'text'>[]>(props.initialArticles)
-	const [errorMessage, setErrorMessage] = useState<string | undefined>(props.errorMessage)
+const ArticleList: FC = () => {
+	const [currentPage, setCurrentPage] = useState<number>(1)
+	const [articles, setArticles] = useState<Omit<Article, 'text'>[] | null>(null)
+	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 	const [hasMore, setHasMore] = useState<boolean>(true)
 
 	const fetchArticlesOnCurrentPage = async () => {
@@ -25,17 +21,40 @@ const ArticleList: FC<PropsType> = (props) => {
 		const json = await res.json()
 
 		if (res.status >= 400) {
-			setErrorMessage((json as Record<'message', string>).message)
-			return
+			return setErrorMessage((json as Record<'message', string>).message)
 		}
 
 		if (Array.isArray(json) && json.length === 0) {
-			setHasMore(false)
-			return
+			return setHasMore(false)
 		}
 
 		setArticles(prev => [...prev, ...json as Omit<Article, 'text'>[]])
 		setCurrentPage(prev => prev + 1)
+	}
+
+	useEffect(() => {
+		const fetchInitialArticles = async () => {
+			const res = await fetch('/api/blog?page=1')
+
+			const json = await res.json()
+
+			if (res.status >= 400) {
+				return setErrorMessage((json as Record<'message', string>).message)
+			}
+
+			if (Array.isArray(json) && json.length === 0) {
+				return setHasMore(false)
+			}
+
+			setArticles(json)
+			setCurrentPage(2)
+		}
+
+		fetchInitialArticles()
+	}, [])
+
+	if (!articles) {
+		return <Center><Loader/></Center>
 	}
 
 	if (errorMessage)

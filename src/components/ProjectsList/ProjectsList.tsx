@@ -1,18 +1,38 @@
-import {FC} from 'react'
+import {FC, useEffect, useState} from 'react'
 
 import ProjectCard from '@/components/ProjectCard/ProjectCard'
+import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
+import Loader from '@/ui/Loader/Loader'
 import {Project} from '@/utils/types/Project'
 
 import styles from './projectsList.module.sass'
 
-type PropsType = {
-	projects?: Project[]
-	errorMessage?: string
-}
+const ProjectsList: FC = () => {
+	const [projects, setProjects] = useState<Project[] | null>()
+	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-const ProjectsList: FC<PropsType> = ({projects, errorMessage}) => {
-	if (errorMessage || !projects) {
+	useEffect(() => {
+		const fetchProjects = async () => {
+			const res = await fetch('/api/projects')
+			const json: Project[] & Record<'message', string> = await res.json()
+
+			if (res.status >= 400) {
+				return setErrorMessage(json.message)
+			}
+
+			setProjects(json)
+		}
+
+		fetchProjects()
+			.catch(e => setErrorMessage(e.message))
+	}, [])
+
+	if (!projects) {
+		return <Center><Loader/></Center>
+	}
+
+	if (errorMessage) {
 		return <ErrorMessage message={errorMessage ?? 'Не удалось загрузить проекты'} />
 	}
 
