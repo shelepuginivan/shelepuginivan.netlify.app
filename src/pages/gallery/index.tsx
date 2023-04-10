@@ -1,4 +1,4 @@
-import {GetStaticProps} from 'next'
+import {GetServerSideProps} from 'next'
 import {Nunito} from 'next/font/google'
 import {FC} from 'react'
 
@@ -17,7 +17,7 @@ type PropsType = {
 	galleryCategories?: GalleryCategory[]
 }
 
-export const getStaticProps: GetStaticProps<PropsType> = async () => {
+export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
 	const res = await fetch(`${getHost()}/api/gallery`)
 	const json = await res.json()
 

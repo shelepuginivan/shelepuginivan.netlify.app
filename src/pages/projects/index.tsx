@@ -1,4 +1,4 @@
-import {GetStaticProps} from 'next'
+import {GetServerSideProps} from 'next'
 import {Nunito} from 'next/font/google'
 import {FC} from 'react'
 
@@ -17,14 +17,14 @@ type PropsType = {
 	errorMessage?: string
 }
 
-export const getStaticProps: GetStaticProps<PropsType> = async () => {
+export const getServerSideProps: GetServerSideProps<PropsType> = async () => {
 	const res = await fetch(`${getHost()}/api/projects`)
-	const json: Project[] = await res.json()
+	const json: Project[] & Record<'message', string> = await res.json()
 
 	if (res.status >= 400) {
 		return {
 			props: {
-				errorMessage: (json as Record<'message', string>).message
+				errorMessage: json.message
 			}
 		}
 	}
