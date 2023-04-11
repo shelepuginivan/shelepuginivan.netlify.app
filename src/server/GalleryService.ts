@@ -1,8 +1,8 @@
 import {MongoClient} from 'mongodb'
 
+import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
 import {randomItem} from '@/utils/randomItem'
-import {ServerExceptionFactory} from '@/utils/ServerExceptionFactory'
-import {GalleryItem} from '@/utils/types/GalleryItem'
+import {Image} from '@/utils/types/Image'
 
 export class GalleryService {
 	static async getCategories(): Promise<string[]> {
@@ -18,7 +18,7 @@ export class GalleryService {
 		}
 	}
 
-	static async getGalleryItemsByCategory(category: string): Promise<GalleryItem[]> {
+	static async getGalleryItemsByCategory(category: string): Promise<Image[]> {
 		const client = new MongoClient(process.env.MONGO_URI as string)
 		await client.connect()
 
@@ -30,7 +30,7 @@ export class GalleryService {
 				throw ServerExceptionFactory.badRequest(`Категория ${category} не найдена`)
 			}
 
-			return await galleryItems.toArray() as unknown as GalleryItem[]
+			return await galleryItems.toArray() as unknown as Image[]
 		} finally {
 			await client.close()
 		}

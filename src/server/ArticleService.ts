@@ -1,6 +1,6 @@
 import {MongoClient} from 'mongodb'
 
-import {ServerExceptionFactory} from '@/utils/ServerExceptionFactory'
+import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
 import {Article} from '@/utils/types/Article'
 
 export class ArticleService {

@@ -1,4 +1,4 @@
-import {ServerException} from '@/utils/ServerException'
+import {ServerException} from '@/server/ServerException'
 
 export class ServerExceptionFactory {
 	static badRequest(message: string): ServerException {
