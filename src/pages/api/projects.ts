@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 
-import {ProjectService} from '@/utils/ProjectsService'
-import {ServerException} from '@/utils/ServerException'
+import {ProjectService} from '@/server/ProjectsService'
+import {ServerException} from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {

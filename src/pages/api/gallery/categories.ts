@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 
-import {GalleryService} from '@/utils/GalleryService'
-import {ServerException} from '@/utils/ServerException'
+import {GalleryService} from '@/server/GalleryService'
+import {ServerException} from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {

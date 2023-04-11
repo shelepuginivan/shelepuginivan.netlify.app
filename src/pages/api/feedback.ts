@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import {FeedbackService} from '@/utils/FeedbackService'
-import {ServerException} from '@/utils/ServerException'
+import {FeedbackService} from '@/server/FeedbackService'
+import {ServerException} from '@/server/ServerException'
 
 const handler = async (
 	req: NextApiRequest,

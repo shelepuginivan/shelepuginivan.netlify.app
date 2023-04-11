@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 
-import {ArticleService} from '@/utils/ArticleService'
-import {ServerException} from '@/utils/ServerException'
+import {ArticleService} from '@/server/ArticleService'
+import {ServerException} from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	let {page, articlesPerPage} = req.query
