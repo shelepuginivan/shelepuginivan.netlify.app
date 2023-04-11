@@ -1,6 +1,5 @@
-import mongoose, {Mongoose} from 'mongoose'
+import {MongoClient} from 'mongodb'
 
-import Feedback from '@/server/models/Feedback'
 import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
 
 export class FeedbackService {
@@ -12,22 +11,21 @@ export class FeedbackService {
 	): Promise<void> {
 		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME)
 			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
-
-		let connection: Mongoose
-
+		
+		const client = new MongoClient(process.env.MONGO_URI)
+		
 		try {
-			connection = await mongoose.connect(process.env.MONGO_URI, {
-				dbName: process.env.MONGO_DB_NAME
-			})
-
-			await Feedback.create({
-				firstname,
+			const database = client.db(process.env.MONGO_DB_NAME)
+			const collection = database.collection('feedback')
+			
+			await collection.insertOne({
+				firstname, 
 				lastname,
 				email,
 				feedback
 			})
 		} finally {
-			await connection?.disconnect?.()
+			await client.close()
 		}
 	}
 }
