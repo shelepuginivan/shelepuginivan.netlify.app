@@ -14,7 +14,7 @@ const Category = () => {
 	const router = useRouter()
 	const {category} = router.query
 
-	const title = `Галерея - ${category} | Иван Шелепугин`
+	const title = `Галерея${category ? ` - ${category}` : ''} | Иван Шелепугин`
 
 	return (
 		<>
