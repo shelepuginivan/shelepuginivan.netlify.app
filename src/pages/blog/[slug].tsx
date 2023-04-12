@@ -1,3 +1,4 @@
+import {GetServerSidePropsContext} from 'next'
 import Head from 'next/head'
 import {FC} from 'react'
 
@@ -12,7 +13,7 @@ type PropsType = {
 	errorMessage?: string
 }
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
 	const params = context.params
 
 	if (!params) {
