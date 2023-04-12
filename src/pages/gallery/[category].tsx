@@ -14,10 +14,14 @@ const Category = () => {
 	const router = useRouter()
 	const {category} = router.query
 
+	const title = `Галерея - ${category} | Иван Шелепугин`
+
 	return (
 		<>
 			<Head>
-				<title>Галерея - {category} | Иван Шелепугин</title>
+				<meta name='og:title' content={`Галерея - ${category} | Иван Шелепугин`}/>
+				<meta name='og:locale' content='ru_RU'/>
+				<title>{title}</title>
 			</Head>
 			<main>
 				<Container>

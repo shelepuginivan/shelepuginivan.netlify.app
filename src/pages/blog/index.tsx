@@ -14,6 +14,8 @@ const Blog: FC = () => {
 	return (
 		<>
 			<Head>
+				<meta name='og:title' content='Блог | Иван Шелепугин'/>
+				<meta name='og:locale' content='ru_RU'/>
 				<title>Блог | Иван Шелепугин</title>
 			</Head>
 			<main>

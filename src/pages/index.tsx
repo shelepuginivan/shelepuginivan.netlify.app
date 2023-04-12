@@ -13,6 +13,8 @@ const Home = () => {
 	return (
 		<>
 			<Head>
+				<meta name='og:title' content='Главная | Иван Шелепугин'/>
+				<meta name='og:locale' content='ru_RU'/>
 				<title>Главная | Иван Шелепугин</title>
 			</Head>
 			<main>

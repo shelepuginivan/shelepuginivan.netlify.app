@@ -4,6 +4,7 @@ import {FC} from 'react'
 
 import ArticleText from '@/components/ArticleText/ArticleText'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
+import {descriptionFromText} from '@/utils/descriptionFromText'
 import {getHost} from '@/utils/getHost'
 import {Article} from '@/utils/types/Article'
 
@@ -55,10 +56,19 @@ const Article: FC<PropsType> = ({article, errorMessage}) => {
 	if (errorMessage || !article)
 		return <ErrorMessage message={errorMessage ?? 'Статья не найдена'}/>
 
+	const title = `${article.title} | Иван Шелепугин`
+	const description = descriptionFromText(article.text)
+
 	return (
 		<>
 			<Head>
-				<title>{article.title} | Иван Шелепугин</title>
+				<meta name='description' content={description}/>
+				<meta name='og:title' content={article.title}/>
+				<meta name='og:description' content={description}/>
+				<meta name='og:type' content='article'/>
+				<meta name='og:locale' content='ru_RU'/>
+				<meta name='og:image' content={article.previewUrl}/>
+				<title>{title}</title>
 			</Head>
 			<main>
 				<ArticleText {...article} />
