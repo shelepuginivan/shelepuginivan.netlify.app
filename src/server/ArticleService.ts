@@ -50,7 +50,7 @@ export class ArticleService {
 			const article = await database.collection('article').findOne({slug: articleSlug})
 			
 			if (!article)
-				throw ServerExceptionFactory.badRequest('Статья не найдена')
+				throw ServerExceptionFactory.notFound('Статья не найдена')
 
 			const {title, previewUrl, publicationTime, slug, text} = article
 
