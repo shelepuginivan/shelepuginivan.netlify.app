@@ -19,8 +19,7 @@ const Category = () => {
 	return (
 		<>
 			<Head>
-				<meta name='og:title' content={`Галерея - ${category} | Иван Шелепугин`}/>
-				<meta name='og:locale' content='ru_RU'/>
+				<meta name='og:title' content={title}/>
 				<title>{title}</title>
 			</Head>
 			<main>
