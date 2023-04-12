@@ -13,7 +13,7 @@ const Footer: FC = () => {
 		<footer className={styles.footer}>
 			<div className={styles.curve}></div>
 			<div className={`${styles.content} ${nunito.className}`}>
-				&copy; Шелепугин Иван, 2022&ndash;{new Date().getFullYear()}
+				&copy; Шелепугин Иван, 2021&ndash;{new Date().getFullYear()}
 			</div>
 		</footer>
 	)
