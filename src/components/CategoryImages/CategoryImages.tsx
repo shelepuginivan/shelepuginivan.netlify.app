@@ -12,6 +12,8 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 
 	useEffect(() => {
 		const fetchGalleryItems = async () => {
+			if (!category) return
+
 			const res = await fetch(`/api/gallery/${category}`)
 			const json: Record<'url', string>[] & Record<'message', string> = await res.json()
 
@@ -23,18 +25,18 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 		}
 
 		fetchGalleryItems()
-	}, [])
+	}, [category])
+
+	if (!images)
+		return <Center>
+			<Loader/>
+		</Center>
 
 	if (errorMessage)
 		return <ErrorMessage message={errorMessage}/>
 
 	if ((typeof category !== 'string') || images && images.length === 0)
 		return <ErrorMessage message={`Категория "${category}" не найдена`}/>
-
-	if (!images)
-		return <Center>
-			<Loader/>
-		</Center>
 
 	return (
 		<div className={styles.wrapper}>
