@@ -28,7 +28,7 @@ const ArticleList: FC = () => {
 			return setHasMore(false)
 		}
 
-		setArticles(prev => [...prev, ...json as Omit<Article, 'text'>[]])
+		setArticles(prev => prev ? [...prev, ...json as Omit<Article, 'text'>[]] : json)
 		setCurrentPage(prev => prev + 1)
 	}
 
