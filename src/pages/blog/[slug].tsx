@@ -1,4 +1,3 @@
-import {GetServerSideProps} from 'next'
 import Head from 'next/head'
 import {FC} from 'react'
 
@@ -13,7 +12,7 @@ type PropsType = {
 	errorMessage?: string
 }
 
-export const getServerSideProps: GetServerSideProps<PropsType> = async (context) => {
+export const getServerSideProps = async (context) => {
 	const params = context.params
 
 	if (!params) {
@@ -28,14 +27,18 @@ export const getServerSideProps: GetServerSideProps<PropsType> = async (context)
 
 	if (typeof slug !== 'string') {
 		return {
-			props: {
-				errorMessage: 'Недопустимое значение параметра slug'
-			}
+			notFound: true
 		}
 	}
 
 	const res = await fetch(`${getHost()}/api/blog/${slug}`)
 	const json = await res.json()
+
+	if (res.status === 404) {
+		return {
+			notFound: true
+		}
+	}
 
 	if (res.status >= 400) {
 		return {
