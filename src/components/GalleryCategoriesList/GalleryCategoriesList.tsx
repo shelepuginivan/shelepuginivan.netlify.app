@@ -4,7 +4,6 @@ import ContentCard from '@/components/ContentCard/ContentCard'
 import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
-import {getHost} from '@/utils/getHost'
 import {GalleryCategory} from '@/utils/types/GalleryCategory'
 
 import styles from './galleryCategoriesList.module.sass'
@@ -18,7 +17,7 @@ const GalleryCategoriesList: FC = () => {
 
 	useEffect(() => {
 		const fetchCategories = async () => {
-			const res = await fetch(`${getHost()}/api/gallery`)
+			const res = await fetch('/api/gallery')
 			const json = await res.json()
 
 			if (res.status >= 400) {
