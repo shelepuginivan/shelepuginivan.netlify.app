@@ -67,7 +67,7 @@ const Article: FC<PropsType> = ({article, errorMessage}) => {
 		<>
 			<Head>
 				<meta name='description' content={description}/>
-				<meta name='og:title' content={article.title}/>
+				<meta name='og:title' content={title}/>
 				<meta name='og:description' content={description}/>
 				<meta name='og:type' content='article'/>
 				<meta name='og:image' content={article.previewUrl}/>
