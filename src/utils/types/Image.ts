@@ -1,4 +1,4 @@
-export type GalleryItem = {
+export type Image = {
 	category: string
 	url: string
 }
