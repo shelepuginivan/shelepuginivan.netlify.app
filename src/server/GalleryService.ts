@@ -12,7 +12,7 @@ export class GalleryService {
 		const database = client.db(process.env.MONGO_DB_NAME as string)
 
 		try {
-			return await database.collection('gallery').distinct('category')
+			return await database.collection('image').distinct('category')
 		} finally {
 			await client.close()
 		}
@@ -24,7 +24,7 @@ export class GalleryService {
 
 		try {
 			const database = client.db(process.env.MONGO_DB_NAME as string)
-			const galleryItems = await database.collection('gallery').find({category})
+			const galleryItems = await database.collection('image').find({category})
 
 			if (!galleryItems) {
 				throw ServerExceptionFactory.notFound(`Категория ${category} не найдена`)
