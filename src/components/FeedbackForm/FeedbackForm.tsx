@@ -4,6 +4,7 @@ import {FC, FormEvent, useState} from 'react'
 import Button from '@/ui/Button/Button'
 import Input from '@/ui/Input/Input'
 import TextArea from '@/ui/TextArea/TextArea'
+import {EMAIL_MAX_LENGTH, FEEDBACK_MAX_LENGTH, FIRSTNAME_MAX_LENGTH, LASTNAME_MAX_LENGTH} from '@/utils/constants'
 
 import styles from './feedbackForm.module.sass'
 
@@ -45,7 +46,7 @@ const FeedbackForm: FC = () => {
 		})
 
 		const status = res.status
-		
+
 		setSubmitted(status < 400)
 		setHeader(status < 400 ? 'Отправлено!' : 'Ошибка!')
 
@@ -80,7 +81,7 @@ const FeedbackForm: FC = () => {
 					id='firstname'
 					type='text'
 					placeholder='Имя'
-					maxLength={64}
+					maxLength={FIRSTNAME_MAX_LENGTH}
 				/>
 				<Input
 					className={robotoFlex.className}
@@ -88,7 +89,7 @@ const FeedbackForm: FC = () => {
 					id='lastname'
 					type='text'
 					placeholder='Фамилия'
-					maxLength={128}
+					maxLength={LASTNAME_MAX_LENGTH}
 				/>
 				<Input
 					className={robotoFlex.className}
@@ -96,14 +97,14 @@ const FeedbackForm: FC = () => {
 					name='email'
 					type='email'
 					placeholder='Email'
-					maxLength={128}
+					maxLength={EMAIL_MAX_LENGTH}
 				/>
 				<TextArea
 					className={robotoFlex.className}
 					id='feedback'
 					name='feedback'
-					placeholder='Введите ваше сообщение (до 500 символов)'
-					maxLength={500}
+					placeholder={`Введите ваше сообщение (до ${FEEDBACK_MAX_LENGTH} символов)`}
+					maxLength={FEEDBACK_MAX_LENGTH}
 				/>
 				<Button type='submit'>Отправить</Button>
 			</form>
