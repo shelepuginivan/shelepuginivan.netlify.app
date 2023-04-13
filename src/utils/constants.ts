@@ -1,0 +1,4 @@
+export const FIRSTNAME_MAX_LENGTH = 64
+export const LASTNAME_MAX_LENGTH = 128
+export const EMAIL_MAX_LENGTH = 128
+export const FEEDBACK_MAX_LENGTH = 500
