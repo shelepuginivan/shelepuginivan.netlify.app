@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import {FeedbackService} from '@/server/FeedbackService'
 import {ServerException} from '@/server/ServerException'
+import {validateFeedbackForm} from '@/utils/validateFeedbackForm'
 
 const handler = async (
 	req: NextApiRequest,
@@ -16,11 +17,14 @@ const handler = async (
 
 	const {firstname, lastname, email, feedback} = req.body
 
-	if (![firstname, lastname, email, feedback].every(Boolean)) {
-		res.status(400).json({
-			message: 'Одно или несколько полей не заполнены. Заполните все поля'
-		})
-		return
+	try {
+		validateFeedbackForm(firstname, lastname, email, feedback)
+	} catch (e) {
+		if (e instanceof Error) {
+			return res.status(400).json({
+				message: e.message
+			})
+		}
 	}
 
 	try {
