@@ -1,0 +1,19 @@
+@import 'src/styles/globals'
+
+.menu
+	@extend .hyphens
+	display: flex
+	flex-direction: column
+
+	*
+		width: fit-content
+		margin-block: 10px
+
+	h1[data-succeed=true]
+		color: darkgreen
+
+	h1[data-succeed=false]
+		color: red
+
+.errorMessage
+	min-height: 30px
