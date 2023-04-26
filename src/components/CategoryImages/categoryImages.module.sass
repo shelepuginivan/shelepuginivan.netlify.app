@@ -3,8 +3,16 @@
 .wrapper
 	@extend .responsiveGrid
 	margin-block: 20px
+	overflow: initial !important
 
 	img
 		@extend .borderRadius
 		@extend .shadow
 		width: 100%
+
+.loaderWrapper
+	display: flex
+	align-items: center
+	justify-content: center
+	grid-column: span 2
+	padding-block: 30px
