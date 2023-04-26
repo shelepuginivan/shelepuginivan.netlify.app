@@ -1,4 +1,5 @@
-import {FC, useEffect, useState} from 'react'
+import {FC, useCallback, useEffect, useState} from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ProjectCard from '@/components/ProjectCard/ProjectCard'
 import Center from '@/ui/Center/Center'
@@ -9,23 +10,29 @@ import {Project} from '@/utils/types/Project'
 import styles from './projectsList.module.sass'
 
 const ProjectsList: FC = () => {
-	const [projects, setProjects] = useState<Project[] | null>()
+	const [currentPage, setCurrentPage] = useState(1)
+	const [hasMore, setHasMore] = useState(false)
+	const [projects, setProjects] = useState<Project[] | null>(null)
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-	useEffect(() => {
-		const fetchProjects = async () => {
-			const res = await fetch('/api/projects')
-			const json: Project[] & Record<'message', string> = await res.json()
+	const fetchProjects = useCallback(async () => {
+		const res = await fetch(`/api/projects?page=${currentPage}`)
+		const json = await res.json()
 
-			if (res.status >= 400) {
-				return setErrorMessage(json.message)
-			}
-
-			setProjects(json)
+		if (res.status >= 400) {
+			return setErrorMessage((json as Record<'message', string>).message)
 		}
 
+		if (json.length === 0) {
+			return setHasMore(false)
+		}
+
+		setProjects(prev => prev ? [...prev, ...json] : json)
+		setCurrentPage(prev => prev + 1)
+	}, [currentPage])
+
+	useEffect(() => {
 		fetchProjects()
-			.catch(e => setErrorMessage(e.message))
 	}, [])
 
 	if (!projects) {
@@ -37,7 +44,13 @@ const ProjectsList: FC = () => {
 	}
 
 	return (
-		<div className={styles.list}>
+		<InfiniteScroll
+			className={styles.list}
+			next={fetchProjects}
+			loader={<Loader/>}
+			hasMore={hasMore}
+			dataLength={projects.length}
+		>
 			{
 				projects.map((project, index) => (
 					<ProjectCard
@@ -51,7 +64,7 @@ const ProjectsList: FC = () => {
 					/>
 				))
 			}
-		</div>
+		</InfiniteScroll>
 	)
 }
 
