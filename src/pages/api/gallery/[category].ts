@@ -4,7 +4,8 @@ import {GalleryService} from '@/server/GalleryService'
 import {ServerException} from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const {category} = req.query
+	const category = req.query.category
+	let {page, imagesPerPage} = req.query
 
 	if (typeof category !== 'string') {
 		res.status(400).json({
@@ -14,8 +15,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		return
 	}
 
+	if (!page || typeof page !== 'string')
+		page = '1'
+
+	if (!imagesPerPage || typeof imagesPerPage !== 'string')
+		imagesPerPage = '10'
+
 	try {
-		const galleryItems = await GalleryService.getGalleryItemsByCategory(category)
+		const galleryItems = await GalleryService.getGalleryItemsByCategory(
+			category,
+			Number(page),
+			Number(imagesPerPage)
+		)
 
 		res.status(200).json(galleryItems)
 	} catch (e) {
