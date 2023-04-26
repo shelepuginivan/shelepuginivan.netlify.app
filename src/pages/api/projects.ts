@@ -5,7 +5,7 @@ import {ServerException} from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const page = Number(req.query.page) || 1
-	const projectsPerPage = Number(req.query .projectsPerPage) || 10
+	const projectsPerPage = Number(req.query.projectsPerPage) || 10
 
 	try {
 		const projects = await ProjectService.getAllProjects(page, projectsPerPage)
