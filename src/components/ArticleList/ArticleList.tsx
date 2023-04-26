@@ -1,8 +1,7 @@
-import {FC, useEffect, useState} from 'react'
+import {FC, useCallback, useEffect, useState} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ArticlePreview from '@/components/ArticlePreview/ArticlePreview'
-import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
 import {Article} from '@/utils/types/Article'
@@ -11,11 +10,11 @@ import styles from './articleList.module.sass'
 
 const ArticleList: FC = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1)
-	const [articles, setArticles] = useState<Omit<Article, 'text'>[] | null>(null)
+	const [articles, setArticles] = useState<Omit<Article, 'text'>[]>([])
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 	const [hasMore, setHasMore] = useState<boolean>(true)
 
-	const fetchArticlesOnCurrentPage = async () => {
+	const fetchArticles = useCallback(async () => {
 		const res = await fetch(`/api/blog?page=${currentPage}`)
 
 		const json = await res.json()
@@ -24,38 +23,17 @@ const ArticleList: FC = () => {
 			return setErrorMessage((json as Record<'message', string>).message)
 		}
 
-		if (Array.isArray(json) && json.length === 0) {
+		if (json.length === 0) {
 			return setHasMore(false)
 		}
 
 		setArticles(prev => prev ? [...prev, ...json as Omit<Article, 'text'>[]] : json)
 		setCurrentPage(prev => prev + 1)
-	}
+	}, [currentPage])
 
 	useEffect(() => {
-		const fetchInitialArticles = async () => {
-			const res = await fetch('/api/blog?page=1')
-
-			const json = await res.json()
-
-			if (res.status >= 400) {
-				return setErrorMessage((json as Record<'message', string>).message)
-			}
-
-			if (Array.isArray(json) && json.length === 0) {
-				return setHasMore(false)
-			}
-
-			setArticles(json)
-			setCurrentPage(2)
-		}
-
-		fetchInitialArticles()
-	}, [])
-
-	if (!articles) {
-		return <Center><Loader/></Center>
-	}
+		fetchArticles()
+	}, [fetchArticles])
 
 	if (errorMessage)
 		return <ErrorMessage message={errorMessage}/>
@@ -63,7 +41,7 @@ const ArticleList: FC = () => {
 	return (
 		<InfiniteScroll
 			className={styles.list}
-			next={fetchArticlesOnCurrentPage}
+			next={fetchArticles}
 			hasMore={hasMore}
 			loader={<div className={styles.loaderWrapper}>
 				<Loader/>
