@@ -1,6 +1,7 @@
 import {FC, useCallback, useEffect, useState} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
 
@@ -9,7 +10,7 @@ import styles from './categoryImages.module.sass'
 const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 	const [currentPage, setCurrentPage] = useState<number>(1)
 	const [hasMore, setHasMore] = useState<boolean>(true)
-	const [images, setImages] = useState<string[]>([])
+	const [images, setImages] = useState<string[] | null>(null)
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
 	const fetchImages = useCallback(async () => {
@@ -22,7 +23,7 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 			return setErrorMessage(json.message)
 		}
 
-		if (images.length === 0 && json.length === 0) {
+		if (images && images.length === 0 && json.length === 0) {
 			return setErrorMessage(`Категория ${category} не найдена`)
 		}
 
@@ -30,16 +31,25 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 			return setHasMore(false)
 		}
 
-		setImages(prev => [...prev, ...(json as Record<'url', string>[]).map(item => item.url) as string[]])
+		setImages(prev => prev
+			? [...prev, ...(json as Record<'url', string>[]).map(item => item.url)]
+			: (json as Record<'url', string>[]).map(item => item.url)
+		)
 		setCurrentPage(prev => prev + 1)
 	}, [category, currentPage])
 
 	useEffect(() => {
 		fetchImages()
-	}, [fetchImages])
+	}, [])
 
 	if (errorMessage) {
 		return <ErrorMessage message={errorMessage}/>
+	}
+
+	if (!images) {
+		return <Center>
+			<Loader/>
+		</Center>
 	}
 
 	return (
