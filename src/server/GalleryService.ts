@@ -17,19 +17,29 @@ export class GalleryService {
 		}
 	}
 
-	static async getGalleryItemsByCategory(category: string): Promise<Image[]> {
+	static async getGalleryItemsByCategory(
+		category: string,
+		page: number,
+		imagesPerPage: number
+	): Promise<Image[]> {
 		const client = new MongoClient(process.env.MONGO_URI as string)
 		await client.connect()
 
 		try {
 			const database = client.db(process.env.MONGO_DB_NAME as string)
-			const galleryItems = await database.collection('image').find({category})
+			const collection = database.collection('image')
+
+			const galleryItems = await collection
+				.find({category})
+				.skip(imagesPerPage * (page - 1))
+				.limit(imagesPerPage)
+				.toArray()
 
 			if (!galleryItems) {
 				throw ServerExceptionFactory.notFound(`Категория ${category} не найдена`)
 			}
 
-			return await galleryItems.toArray() as unknown as Image[]
+			return galleryItems as unknown as Image[]
 		} finally {
 			await client.close()
 		}
