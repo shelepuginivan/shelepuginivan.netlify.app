@@ -5,10 +5,14 @@ import {Image} from '@/utils/types/Image'
 
 export class GalleryService {
 	static async getCategories(): Promise<string[]> {
-		const client = new MongoClient(process.env.MONGO_URI as string)
+		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
+			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+		}
+
+		const client = new MongoClient(process.env.MONGO_URI)
 		await client.connect()
 
-		const database = client.db(process.env.MONGO_DB_NAME as string)
+		const database = client.db(process.env.MONGO_DB_NAME)
 
 		try {
 			return await database.collection('image').distinct('category')
@@ -22,11 +26,15 @@ export class GalleryService {
 		page: number,
 		imagesPerPage: number
 	): Promise<Image[]> {
-		const client = new MongoClient(process.env.MONGO_URI as string)
+		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
+			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+		}
+
+		const client = new MongoClient(process.env.MONGO_URI)
 		await client.connect()
 
 		try {
-			const database = client.db(process.env.MONGO_DB_NAME as string)
+			const database = client.db(process.env.MONGO_DB_NAME)
 			const collection = database.collection('image')
 
 			const galleryItems = await collection
@@ -46,11 +54,15 @@ export class GalleryService {
 	}
 
 	static async getRandomImageUrlByCategory(category: string): Promise<string> {
+		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
+			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+		}
+
 		const client = new MongoClient(process.env.MONGO_URI)
 		await client.connect()
 
 		try {
-			const database = client.db(process.env.MONGO_DB_NAME as string)
+			const database = client.db(process.env.MONGO_DB_NAME)
 			const collection = database.collection('image')
 
 			const image = collection.aggregate([
