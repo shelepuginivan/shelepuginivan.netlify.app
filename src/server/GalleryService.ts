@@ -37,8 +37,35 @@ export class GalleryService {
 	}
 
 	static async getRandomImageUrlByCategory(category: string): Promise<string> {
-		const galleryItems = await GalleryService.getGalleryItemsByCategory(category)
+		const client = new MongoClient(process.env.MONGO_URI)
+		await client.connect()
 
-		return randomItem(galleryItems).url
+		try {
+			const database = client.db(process.env.MONGO_DB_NAME as string)
+			const collection = database.collection('image')
+
+			const image = collection.aggregate([
+				{
+					$match: {
+						category
+					}
+				},
+				{
+					$sample: {
+						size: 1
+					}
+				}
+			])
+
+			const imageDocument = await image.next()
+
+			if (!imageDocument || !imageDocument.url) {
+				throw ServerExceptionFactory.badRequest(`категория ${category} не найдена`)
+			}
+
+			return imageDocument.url
+		} finally {
+			await client.close()
+		}
 	}
 }
