@@ -1,7 +1,6 @@
 import {MongoClient} from 'mongodb'
 
 import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
-import {randomItem} from '@/utils/randomItem'
 import {Image} from '@/utils/types/Image'
 
 export class GalleryService {
