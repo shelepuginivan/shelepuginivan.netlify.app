@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import {FC, useCallback, useEffect, useState} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
@@ -12,7 +12,9 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 	const [images, setImages] = useState<string[]>([])
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-	const fetchImages = async () => {
+	const fetchImages = useCallback(async () => {
+		if (!category) return
+
 		const res = await fetch(`/api/gallery/${category}?page=${currentPage}`)
 		const json = await res.json()
 
@@ -20,13 +22,21 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 			return setErrorMessage(json.message)
 		}
 
-		if (Array.isArray(json) && json.length === 0) {
+		if (images.length === 0 && json.length === 0) {
+			return setErrorMessage(`Категория ${category} не найдена`)
+		}
+
+		if (json.length === 0) {
 			return setHasMore(false)
 		}
 
-		setImages(prev => [...prev, ...json.map(item => item.url) as string[]])
+		setImages(prev => [...prev, ...(json as Record<'url', string>[]).map(item => item.url) as string[]])
 		setCurrentPage(prev => prev + 1)
-	}
+	}, [category, currentPage])
+
+	useEffect(() => {
+		fetchImages()
+	}, [fetchImages])
 
 	if (errorMessage) {
 		return <ErrorMessage message={errorMessage}/>
