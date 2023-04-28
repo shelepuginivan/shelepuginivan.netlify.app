@@ -9,9 +9,7 @@ const robotoFlex = Roboto_Flex({
 	weight: '400'
 })
 
-const ArticleText: FC<Article> = ({text, slug}) => {
-	const shareLink = `${getHost()}/blog/${slug}`
-
+const ArticleText: FC<{text: string}> = ({text}) => {
 	return (
 		<ReactMarkdown className={`${robotoFlex.className} ${styles.text}`}>
 			{text}
