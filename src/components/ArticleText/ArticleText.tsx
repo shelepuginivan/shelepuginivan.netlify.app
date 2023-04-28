@@ -27,11 +27,13 @@ const ArticleText: FC<Article> = ({
 	slug}) => {
 	const publicationTimeString = new Intl.DateTimeFormat('ru').format(publicationTime)
 	const shareLink = `${getHost()}/blog/${slug}`
+	const pdfLink = `/api/blog/${slug}/download`
 
 	return (
 		<Container>
 			<div className={styles.articleHeader}>
 				<p>Опубликовано: {publicationTimeString}</p>
+				<a target='_blank' href={pdfLink}>Читать в PDF</a>
 				<h1 className={nunito.className}>{title}</h1>
 				<img src={previewUrl} alt=""/>
 			</div>
