@@ -4,6 +4,7 @@ import {FC} from 'react'
 
 import ArticleHeader from '@/components/ArticleHeader/ArticleHeader'
 import ArticleText from '@/components/ArticleText/ArticleText'
+import ShareMenu from '@/components/ShareMenu/ShareMenu'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import {descriptionFromText} from '@/utils/descriptionFromText'
 import {getHost} from '@/utils/getHost'
@@ -77,6 +78,7 @@ const Article: FC<PropsType> = ({article, errorMessage}) => {
 			<main>
 				<ArticleHeader {...article}/>
 				<ArticleText {...article} />
+				<ShareMenu slug={article.slug}/>
 			</main>
 		</>
 	)
