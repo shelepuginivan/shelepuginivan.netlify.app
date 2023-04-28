@@ -2,6 +2,7 @@ import {Nunito, Roboto_Flex} from 'next/font/google'
 import {FC, useCallback, useState} from 'react'
 
 import Button from '@/ui/Button/Button'
+import {getHost} from '@/utils/getHost'
 
 import styles from './shareMenu.module.sass'
 
@@ -15,10 +16,12 @@ const robotoFlex = Roboto_Flex({
 	weight: '400'
 })
 
-const ShareMenu: FC<{url: string}> = ({url}) => {
+const ShareMenu: FC<{slug: string}> = ({slug}) => {
 	const [header, setHeader] = useState<string>('Поделиться')
 	const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
 	const [message, setMessage] = useState<string>('')
+	
+	const shareLink = `${getHost()}/blog/${slug}`
 
 	const clipUrl = useCallback(async () => {
 		if (!navigator.clipboard) {
@@ -28,7 +31,7 @@ const ShareMenu: FC<{url: string}> = ({url}) => {
 		}
 
 		try {
-			await navigator.clipboard.writeText(url)
+			await navigator.clipboard.writeText(shareLink)
 
 			setIsSuccess(true)
 			setHeader('Успех!')
@@ -38,7 +41,7 @@ const ShareMenu: FC<{url: string}> = ({url}) => {
 			setHeader('Ошибка!')
 			setMessage('Не удалось скопировать ссылку')
 		}
-	}, [url])
+	}, [shareLink])
 
 	const share = useCallback(async () => {
 		if (!navigator.share) {
@@ -48,7 +51,7 @@ const ShareMenu: FC<{url: string}> = ({url}) => {
 		}
 
 		try {
-			await navigator.share({url})
+			await navigator.share({url: shareLink})
 
 			setIsSuccess(true)
 			setHeader('Успех!')
@@ -65,7 +68,7 @@ const ShareMenu: FC<{url: string}> = ({url}) => {
 				}
 			}
 		}
-	}, [url])
+	}, [shareLink])
 
 	return (
 		<menu className={`${styles.menu} ${robotoFlex.className}`}>
