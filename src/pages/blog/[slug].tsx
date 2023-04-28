@@ -77,7 +77,7 @@ const Article: FC<PropsType> = ({article, errorMessage}) => {
 			</Head>
 			<main>
 				<ArticleHeader {...article}/>
-				<ArticleText {...article} />
+				<ArticleText text={article.text}/>
 				<ShareMenu slug={article.slug}/>
 			</main>
 		</>
