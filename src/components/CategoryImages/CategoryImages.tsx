@@ -64,7 +64,7 @@ const CategoryImages: FC<{category?: string | string[]}> = ({category}) => {
 		>
 			{
 				images.map(
-					(image, index) => <img src={image} alt="" key={index}/>
+					(image, index) => <img src={image} alt='' key={index}/>
 				)
 			}
 		</InfiniteScroll>

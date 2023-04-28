@@ -26,7 +26,7 @@ const AboutMe: FC = () => {
 					Участвую в проектных конкурсах и олимпиадах по разным предметам.
 				</p>
 			</div>
-			<img src={ivan.src} alt=""/>
+			<img src={ivan.src} alt=''/>
 		</section>
 	)
 }
