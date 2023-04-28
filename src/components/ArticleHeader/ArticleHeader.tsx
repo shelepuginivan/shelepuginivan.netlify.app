@@ -24,7 +24,7 @@ const ArticleHeader: FC<PropsType> = ({
 		<section className={styles.articleHeader}>
 			<div className={styles.info}>
 				<p>Опубликовано: {publicationTimeString}</p>
-				<a target='_blank' href={pdfLink}>Читать в PDF</a>
+				<a target='_blank' href={pdfLink}>Скачать текст</a>
 			</div>
 			<h1 className={nunito.className}>{title}</h1>
 			<img src={previewUrl} alt=''/>
