@@ -1,0 +1,29 @@
+@import 'src/styles/globals'
+@import 'src/styles/variables'
+
+.articleHeader
+	@extend .container
+	@extend .hyphens
+	margin-bottom: 100px
+
+	h1
+		font-size: xxx-large
+
+	img
+		@extend .borderRadius
+		width: 100%
+
+.info
+	display: flex
+	align-items: center
+	justify-content: space-between
+
+	p
+		color: gray
+
+	a
+		text-decoration: none
+		color: $link-blue
+
+		&:hover
+			text-decoration: underline

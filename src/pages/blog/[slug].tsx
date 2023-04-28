@@ -2,6 +2,7 @@ import {GetServerSidePropsContext} from 'next'
 import Head from 'next/head'
 import {FC} from 'react'
 
+import ArticleHeader from '@/components/ArticleHeader/ArticleHeader'
 import ArticleText from '@/components/ArticleText/ArticleText'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import {descriptionFromText} from '@/utils/descriptionFromText'
@@ -74,6 +75,7 @@ const Article: FC<PropsType> = ({article, errorMessage}) => {
 				<title>{title}</title>
 			</Head>
 			<main>
+				<ArticleHeader {...article}/>
 				<ArticleText {...article} />
 			</main>
 		</>
