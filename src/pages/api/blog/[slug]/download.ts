@@ -1,4 +1,3 @@
-import mdToPdf from 'md-to-pdf'
 import {NextApiRequest, NextApiResponse} from 'next'
 
 import {ArticleService} from '@/server/ArticleService'
@@ -16,13 +15,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
 		const {text, title} = await ArticleService.getArticleBySlug(slug)
-		const pdf = await mdToPdf({content: text})
-		const filename = `${encodeURIComponent(title).trim()}.pdf`
+		const filename = `${encodeURIComponent(title).trim()}.md`
 
-		res.setHeader('Content-Type', 'application/pdf')
+		res.setHeader('Content-Type', 'text/markdown; charset=utf-8')
 		res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
 
-		res.send(pdf.content)
+		res.send(text)
 	} catch (e) {
 		if (e instanceof ServerException) {
 			res.status(e.status).json({message: e.message})
