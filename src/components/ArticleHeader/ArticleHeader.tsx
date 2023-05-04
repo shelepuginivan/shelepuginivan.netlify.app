@@ -18,13 +18,13 @@ const ArticleHeader: FC<PropsType> = ({
 	slug,
 	title}) => {
 	const publicationTimeString = new Intl.DateTimeFormat('ru').format(publicationTime)
-	const pdfLink = `/api/blog/${slug}/download`
+	const textDownloadLink = `/api/blog/${slug}/download`
 
 	return (
 		<section className={styles.articleHeader}>
 			<div className={styles.info}>
 				<p>Опубликовано: {publicationTimeString}</p>
-				<a target='_blank' href={pdfLink}>Скачать текст</a>
+				<a href={textDownloadLink}>Скачать текст</a>
 			</div>
 			<h1 className={nunito.className}>{title}</h1>
 			<img src={previewUrl} alt=''/>
