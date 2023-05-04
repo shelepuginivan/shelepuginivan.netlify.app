@@ -1,4 +1,5 @@
 import {Nunito, Roboto_Flex} from 'next/font/google'
+import Image from 'next/image'
 import {FC} from 'react'
 
 import phone from '@/assets/phone.png'
@@ -40,7 +41,7 @@ const Social: FC = () => {
 					</li>
 				</ul>
 			</div>
-			<img src={phone.src} alt=''/>
+			<Image src={phone} alt=''/>
 		</div>
 	)
 }

@@ -1,4 +1,5 @@
 import {Nunito, Roboto_Flex} from 'next/font/google'
+import Image from 'next/image'
 import {FC} from 'react'
 
 import ivan from '@/assets/ivan.png'
@@ -26,7 +27,7 @@ const AboutMe: FC = () => {
 					Участвую в проектных конкурсах и олимпиадах по разным предметам.
 				</p>
 			</div>
-			<img src={ivan.src} alt=''/>
+			<Image src={ivan} alt=''/>
 		</section>
 	)
 }
