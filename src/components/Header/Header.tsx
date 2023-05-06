@@ -20,7 +20,6 @@ const Header: FC = () => {
 					<Link href='/blog'><i className='icon-book'></i></Link>
 					<Link href='/gallery'><i className='icon-gallery'></i></Link>
 					<Link href='/contacts'><i className='icon-contacts'></i></Link>
-					<Link href='/feed.xml'><i className='icon-rss'></i></Link>
 				</nav>
 			</div>
 			<div className={styles.curve}></div>
