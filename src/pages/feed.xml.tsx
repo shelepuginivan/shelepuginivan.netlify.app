@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({res}) => {
 		})
 	})
 
-	res.setHeader('Content-Type', 'text/xml')
+	res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8')
 	res.write(feed.rss2())
 	res.end()
 
