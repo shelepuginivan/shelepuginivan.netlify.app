@@ -5,9 +5,9 @@ import {feedOptions} from '@/utils/constants'
 import {getHost} from '@/utils/getHost'
 import {Article, isArticleData} from '@/utils/types/Article'
 
-const feed = new Feed(feedOptions)
-
 export const getServerSideProps: GetServerSideProps = async ({res}) => {
+	const feed = new Feed(feedOptions)
+
 	const articlesRes = await fetch(`${getHost()}/api/blog`)
 	const articlesJson = await articlesRes.json() as unknown
 
