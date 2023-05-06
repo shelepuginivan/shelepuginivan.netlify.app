@@ -1,5 +1,4 @@
 import {Nunito} from 'next/font/google'
-import Link from 'next/link'
 import {FC} from 'react'
 
 import styles from './footer.module.sass'
@@ -15,7 +14,7 @@ const Footer: FC = () => {
 			<div className={styles.curve}></div>
 			<div className={`${styles.content} ${nunito.className}`}>
 				&copy; Шелепугин Иван, 2021&ndash;{new Date().getFullYear()}
-				<Link href='/feed.xml'><i className='icon-rss'></i> RSS</Link>
+				<a href='/feed.xml'><i className='icon-rss'></i> RSS</a>
 			</div>
 		</footer>
 	)
