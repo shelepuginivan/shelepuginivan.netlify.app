@@ -23,11 +23,19 @@
             "error",
             "tab"
         ],
+		"jsx-quotes": [
+			"error",
+			"prefer-single"
+		],
         "linebreak-style": [
             "error",
             "unix"
         ],
-        "quotes": [
+		"object-curly-spacing": [
+			"error",
+			"always"
+		],
+		"quotes": [
             "error",
             "single"
         ],
@@ -35,10 +43,6 @@
             "error",
             "never"
         ],
-		"jsx-quotes": [
-			"error",
-			"prefer-single"
-		],
 		"simple-import-sort/imports": "error",
     	"simple-import-sort/exports": "error"
     }
