@@ -17,13 +17,13 @@ export class ArticleService {
 			const collection = await database.collection('article')
 			const allArticles = await collection
 				.find()
+				.sort('publicationTime', 'descending')
 				.skip((page - 1) * articlesPerPage)
 				.limit(articlesPerPage)
-				.sort('publicationTime', 'descending')
-				.toArray()
+				.toArray() as unknown as Article[]
 
 			return allArticles.map(article => {
-				const {title, slug, publicationTime, previewUrl } = article as unknown as Article
+				const {title, slug, publicationTime, previewUrl} = article
 
 				return {
 					title,
