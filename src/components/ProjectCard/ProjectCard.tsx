@@ -10,7 +10,7 @@ type PropsType = {
 	title: string
 	description: string
 	previewUrl: string | Record<'src', string>
-	badges?: string[],
+	badgesUrls?: string[],
 	githubLink?: string,
 	demoLink?: string
 }
@@ -39,7 +39,7 @@ const ProjectCard: FC<PropsType> = (props) => {
 				<p>{props.description}</p>
 				<div className={styles.badges}>
 					{
-						props.badges?.map((badge, index) =>
+						props.badgesUrls?.map((badge, index) =>
 							<Badge key={index} href={badge}/>
 						)
 					}
