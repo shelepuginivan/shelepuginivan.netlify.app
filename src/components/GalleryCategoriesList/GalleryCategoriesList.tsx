@@ -63,21 +63,18 @@ const GalleryCategoriesList: FC = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			{
-				categories.map(
-					(category, index) => {
-						if (showSecret || category.name !== process.env.NEXT_PUBLIC_SECRET_CATEGORY)
-							return <ContentCard
-								key={index}
-								title={category.name}
-								backgroundImage={category.previewUrl}
-								href={`/gallery/${category.name}`}
-							/>
+			{categories.map(category => {
+				if (!showSecret && category.name === process.env.NEXT_PUBLIC_SECRET_CATEGORY) {
+					return null
+				}
 
-						return null
-					}
-				)
-			}
+				return <ContentCard
+					key={category.name}
+					title={category.name}
+					backgroundImage={category.previewUrl}
+					href={`/gallery/${category.name}`}
+				/>
+			})}
 		</div>
 	)
 }
