@@ -1,13 +1,15 @@
+import {AxiosError} from 'axios'
 import {GetServerSidePropsContext} from 'next'
 import Head from 'next/head'
 import {FC} from 'react'
 
+import {fetchArticleBySlug} from '@/api/blog'
 import ArticleHeader from '@/components/ArticleHeader/ArticleHeader'
 import ArticleText from '@/components/ArticleText/ArticleText'
 import ShareMenu from '@/components/ShareMenu/ShareMenu'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import {descriptionFromText} from '@/utils/descriptionFromText'
-import {getHost} from '@/utils/getHost'
+import {errorMessage} from '@/utils/errorMessage'
 import {Article} from '@/utils/types/Article'
 
 type PropsType = {
@@ -15,9 +17,7 @@ type PropsType = {
 	errorMessage?: string
 }
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-	const params = context.params
-
+export const getServerSideProps = async ({params}: GetServerSidePropsContext) => {
 	if (!params) {
 		return {
 			props: {
@@ -33,27 +33,26 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 			notFound: true
 		}
 	}
+	
+	try {
+		const article = await fetchArticleBySlug(slug)
 
-	const res = await fetch(`${getHost()}/api/blog/${slug}`)
-	const json = await res.json()
-
-	if (res.status === 404) {
-		return {
-			notFound: true
-		}
-	}
-
-	if (res.status >= 400) {
 		return {
 			props: {
-				errorMessage: (json as Record<'message', string>).message
+				article
 			}
 		}
-	}
-
-	return {
-		props: {
-			article: json
+	} catch (error) {
+		if (error instanceof AxiosError && error.status === 404) {
+			return {
+				notFound: true
+			}
+		}
+		
+		return {
+			props: {
+				errorMessage: errorMessage(error)
+			}
 		}
 	}
 }
