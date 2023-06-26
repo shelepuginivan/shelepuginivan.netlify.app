@@ -1,6 +1,6 @@
-import {Nunito, Roboto_Flex} from 'next/font/google'
+import { Nunito, Roboto_Flex } from 'next/font/google'
 import Image from 'next/image'
-import {FC} from 'react'
+import { FC } from 'react'
 
 import phone from '@/assets/phone.png'
 

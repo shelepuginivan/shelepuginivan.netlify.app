@@ -1,8 +1,8 @@
-import {Roboto_Flex} from 'next/font/google'
-import {FC} from 'react'
+import { Roboto_Flex } from 'next/font/google'
+import { FC } from 'react'
 
 import Badge from '@/ui/Badge/Badge'
-import {imgToCssUrl} from '@/utils/imgToCssUrl'
+import { imgToCssUrl } from '@/utils/imgToCssUrl'
 
 import styles from './projectCard.module.sass'
 
@@ -33,7 +33,7 @@ const ProjectCard: FC<PropsType> = (props) => {
 
 	return (
 		<div className={`${styles.card} ${font.className}`}>
-			<div className={styles.img} style={{backgroundImage: preview}} />
+			<div className={styles.img} style={{ backgroundImage: preview }} />
 			<div className={styles.content}>
 				<h2>{props.title}</h2>
 				<p>{props.description}</p>

@@ -1,17 +1,17 @@
-import {FC, useEffect, useRef, useState} from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import ContentCard from '@/components/ContentCard/ContentCard'
-import {useGalleryCategoriesQuery} from '@/hooks/useGalleryCategoriesQuery'
+import { useGalleryCategoriesQuery } from '@/hooks/useGalleryCategoriesQuery'
 import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
-import {errorMessage} from '@/utils/errorMessage'
+import { errorMessage } from '@/utils/errorMessage'
 
 import styles from './galleryCategoriesList.module.sass'
 
 const GalleryCategoriesList: FC = () => {
 	const [showSecret, setShowSecret] = useState<boolean>(false)
-	const {data: categories, error, isLoading} = useGalleryCategoriesQuery()
+	const { data: categories, error, isLoading } = useGalleryCategoriesQuery()
 	const secretCode = useRef('')
 	
 	const secretCodeEnter = (event: KeyboardEvent) => {

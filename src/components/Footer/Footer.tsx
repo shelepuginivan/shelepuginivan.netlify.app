@@ -1,5 +1,5 @@
-import {Nunito} from 'next/font/google'
-import {FC} from 'react'
+import { Nunito } from 'next/font/google'
+import { FC } from 'react'
 
 import styles from './footer.module.sass'
 

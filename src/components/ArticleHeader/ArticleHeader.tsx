@@ -1,7 +1,7 @@
-import {Nunito} from 'next/font/google'
-import {FC} from 'react'
+import { Nunito } from 'next/font/google'
+import { FC } from 'react'
 
-import {Article} from '@/utils/types/Article'
+import { Article } from '@/utils/types/Article'
 
 import styles from './articleHeader.module.sass'
 
@@ -16,7 +16,7 @@ const ArticleHeader: FC<PropsType> = ({
 	previewUrl,
 	publicationTime,
 	slug,
-	title}) => {
+	title }) => {
 	const publicationTimeString = new Intl.DateTimeFormat('ru').format(publicationTime)
 	const textDownloadLink = `/api/blog/${slug}/download`
 

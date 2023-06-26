@@ -1,5 +1,5 @@
-import {Roboto_Flex} from 'next/font/google'
-import {FC} from 'react'
+import { Roboto_Flex } from 'next/font/google'
+import { FC } from 'react'
 import ReactMarkdown from 'react-markdown'
 
 import styles from './articleText.module.sass'
@@ -9,7 +9,7 @@ const robotoFlex = Roboto_Flex({
 	weight: '400'
 })
 
-const ArticleText: FC<{text: string}> = ({text}) => {
+const ArticleText: FC<{text: string}> = ({ text }) => {
 	return (
 		<ReactMarkdown className={`${robotoFlex.className} ${styles.text}`}>
 			{text}

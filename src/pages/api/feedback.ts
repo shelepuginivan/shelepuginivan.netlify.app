@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import {FeedbackService} from '@/server/FeedbackService'
-import {ServerException} from '@/server/ServerException'
-import {validateFeedbackForm} from '@/utils/validateFeedbackForm'
+import { FeedbackService } from '@/server/FeedbackService'
+import { ServerException } from '@/server/ServerException'
+import { validateFeedbackForm } from '@/utils/validateFeedbackForm'
 
 const handler = async (
 	req: NextApiRequest,
@@ -15,7 +15,7 @@ const handler = async (
 		return
 	}
 
-	const {firstname, lastname, email, feedback} = req.body
+	const { firstname, lastname, email, feedback } = req.body
 
 	try {
 		validateFeedbackForm(firstname, lastname, email, feedback)
@@ -38,9 +38,9 @@ const handler = async (
 		res.status(200).end()
 	} catch (error) {
 		if (error instanceof ServerException) {
-			res.status(error.status).json({message: error.message})
+			res.status(error.status).json({ message: error.message })
 		} else {
-			res.status(500).json({message: 'Внутренняя ошибка сервера'})
+			res.status(500).json({ message: 'Внутренняя ошибка сервера' })
 		}
 	}
 }

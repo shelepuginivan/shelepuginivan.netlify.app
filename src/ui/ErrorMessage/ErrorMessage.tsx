@@ -1,6 +1,6 @@
-import {Nunito, Roboto_Flex} from 'next/font/google'
+import { Nunito, Roboto_Flex } from 'next/font/google'
 import Link from 'next/link'
-import {FC} from 'react'
+import { FC } from 'react'
 
 import styles from './errorMessage.module.sass'
 
@@ -19,7 +19,7 @@ const robotoFlex = Roboto_Flex({
 	weight: '400'
 })
 
-const ErrorMessage: FC<PropsType> = ({message, header}) =>
+const ErrorMessage: FC<PropsType> = ({ message, header }) =>
 	<div className={styles.errorMessage}>
 		<h1 className={nunito.className}>{header ?? 'Произошла ошибка!'}</h1>
 		<p className={robotoFlex.className}>{message}</p>

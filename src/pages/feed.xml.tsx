@@ -1,11 +1,11 @@
-import {Feed} from 'feed'
-import {GetServerSideProps} from 'next'
+import { Feed } from 'feed'
+import { GetServerSideProps } from 'next'
 
-import {feedOptions} from '@/utils/constants'
-import {getHost} from '@/utils/getHost'
-import {Article, isArticleData} from '@/utils/types/Article'
+import { feedOptions } from '@/utils/constants'
+import { getHost } from '@/utils/getHost'
+import { Article, isArticleData } from '@/utils/types/Article'
 
-export const getServerSideProps: GetServerSideProps = async ({res}) => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 	const feed = new Feed(feedOptions)
 
 	const articlesRes = await fetch(`${getHost()}/api/blog`)
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({res}) => {
 	res.write(feed.rss2())
 	res.end()
 
-	return {props: {}}
+	return { props: {} }
 }
 
 export default () => null

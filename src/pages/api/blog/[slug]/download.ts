@@ -1,10 +1,10 @@
-import {NextApiRequest, NextApiResponse} from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-import {ArticleService} from '@/server/ArticleService'
-import {ServerException} from '@/server/ServerException'
+import { ArticleService } from '@/server/ArticleService'
+import { ServerException } from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const {slug} = req.query
+	const { slug } = req.query
 
 	if (typeof slug !== 'string') {
 		res.status(400).json({
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 
 	try {
-		const {text, title} = await ArticleService.getArticleBySlug(slug)
+		const { text, title } = await ArticleService.getArticleBySlug(slug)
 		const filename = `${encodeURIComponent(title).trim()}.md`
 
 		res.setHeader('Content-Type', 'text/markdown; charset=utf-8')
@@ -23,9 +23,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		res.send(text)
 	} catch (error) {
 		if (error instanceof ServerException) {
-			res.status(error.status).json({message: error.message})
+			res.status(error.status).json({ message: error.message })
 		} else {
-			res.status(500).json({message: 'Внутренняя ошибка сервера'})
+			res.status(500).json({ message: 'Внутренняя ошибка сервера' })
 		}
 	}
 }

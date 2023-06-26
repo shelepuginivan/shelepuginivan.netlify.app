@@ -1,10 +1,10 @@
-import {Nunito, Roboto_Flex} from 'next/font/google'
-import {FC, FormEvent, useState} from 'react'
+import { Nunito, Roboto_Flex } from 'next/font/google'
+import { FC, FormEvent, useState } from 'react'
 
 import Button from '@/ui/Button/Button'
 import Input from '@/ui/Input/Input'
 import TextArea from '@/ui/TextArea/TextArea'
-import {EMAIL_MAX_LENGTH, FEEDBACK_MAX_LENGTH, FIRSTNAME_MAX_LENGTH, LASTNAME_MAX_LENGTH} from '@/utils/constants'
+import { EMAIL_MAX_LENGTH, FEEDBACK_MAX_LENGTH, FIRSTNAME_MAX_LENGTH, LASTNAME_MAX_LENGTH } from '@/utils/constants'
 
 import styles from './feedbackForm.module.sass'
 

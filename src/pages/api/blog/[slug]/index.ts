@@ -1,10 +1,10 @@
-import {NextApiRequest, NextApiResponse} from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-import {ArticleService} from '@/server/ArticleService'
-import {ServerException} from '@/server/ServerException'
+import { ArticleService } from '@/server/ArticleService'
+import { ServerException } from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const {slug} = req.query
+	const { slug } = req.query
 
 	if (typeof slug !== 'string') {
 		res.status(400).json({
@@ -19,9 +19,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		res.status(200).json(article)
 	} catch (error) {
 		if (error instanceof ServerException) {
-			res.status(error.status).json({message: error.message})
+			res.status(error.status).json({ message: error.message })
 		} else {
-			res.status(500).json({message: 'Внутренняя ошибка сервера'})
+			res.status(500).json({ message: 'Внутренняя ошибка сервера' })
 		}
 	}
 

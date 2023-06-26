@@ -1,7 +1,7 @@
-import {MongoClient, WithId} from 'mongodb'
+import { MongoClient, WithId } from 'mongodb'
 
-import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
-import {Image} from '@/utils/types/Image'
+import { ServerExceptionFactory } from '@/server/ServerExceptionFactory'
+import { Image } from '@/utils/types/Image'
 
 export class GalleryService {
 	static async getCategories(): Promise<string[]> {
@@ -38,7 +38,7 @@ export class GalleryService {
 			const collection = database.collection('image')
 
 			const galleryItems = await collection
-				.find({category})
+				.find({ category })
 				.skip(imagesPerPage * (page - 1))
 				.limit(imagesPerPage)
 				.toArray() as WithId<Image>[]

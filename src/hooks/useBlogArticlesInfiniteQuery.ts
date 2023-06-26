@@ -1,6 +1,6 @@
-import {useInfiniteQuery} from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
-import {fetchBlogArticles} from '@/api/blog'
+import { fetchBlogArticles } from '@/api/blog'
 
 export const useBlogArticlesInfiniteQuery = (articlesPerPage = 10) => useInfiniteQuery({
 	queryFn: ({ pageParam = 1 }) => fetchBlogArticles(pageParam, articlesPerPage),

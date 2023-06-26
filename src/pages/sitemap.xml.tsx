@@ -1,7 +1,7 @@
-import {GetServerSideProps} from 'next'
+import { GetServerSideProps } from 'next'
 
-import {fetchAllGalleryCategories, fetchAllSlugs} from '@/api/sitemap'
-import {getHost} from '@/utils/getHost'
+import { fetchAllGalleryCategories, fetchAllSlugs } from '@/api/sitemap'
+import { getHost } from '@/utils/getHost'
 
 const sitemapLocation = (url: string) => {
 	return `<url>
@@ -10,7 +10,7 @@ const sitemapLocation = (url: string) => {
 `
 }
 
-export const getServerSideProps: GetServerSideProps = async ({res}) => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 	let blogSlugsUrls, galleryCategoriesUrls
 
 	try {
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({res}) => {
 	res.write(sitemap)
 	res.end()
 
-	return {props: {}}
+	return { props: {} }
 }
 
 export default () => null

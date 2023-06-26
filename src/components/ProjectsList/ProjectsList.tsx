@@ -1,12 +1,12 @@
-import {FC} from 'react'
+import { FC } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ProjectCard from '@/components/ProjectCard/ProjectCard'
-import {useProjectsInfiniteQuery} from '@/hooks/useProjectsInfiniteQuery'
+import { useProjectsInfiniteQuery } from '@/hooks/useProjectsInfiniteQuery'
 import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
-import {errorMessage} from '@/utils/errorMessage'
+import { errorMessage } from '@/utils/errorMessage'
 
 import styles from './projectsList.module.sass'
 

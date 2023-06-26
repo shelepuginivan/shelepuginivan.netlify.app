@@ -1,23 +1,23 @@
-import {AxiosError} from 'axios'
-import {GetServerSidePropsContext} from 'next'
+import { AxiosError } from 'axios'
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
-import {FC} from 'react'
+import { FC } from 'react'
 
-import {fetchArticleBySlug} from '@/api/blog'
+import { fetchArticleBySlug } from '@/api/blog'
 import ArticleHeader from '@/components/ArticleHeader/ArticleHeader'
 import ArticleText from '@/components/ArticleText/ArticleText'
 import ShareMenu from '@/components/ShareMenu/ShareMenu'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
-import {descriptionFromText} from '@/utils/descriptionFromText'
-import {errorMessage} from '@/utils/errorMessage'
-import {Article} from '@/utils/types/Article'
+import { descriptionFromText } from '@/utils/descriptionFromText'
+import { errorMessage } from '@/utils/errorMessage'
+import { Article } from '@/utils/types/Article'
 
 type PropsType = {
 	article?: Article
 	errorMessage?: string
 }
 
-export const getServerSideProps = async ({params}: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ params }: GetServerSidePropsContext) => {
 	if (!params) {
 		return {
 			props: {
@@ -26,7 +26,7 @@ export const getServerSideProps = async ({params}: GetServerSidePropsContext) =>
 		}
 	}
 
-	const {slug} = params
+	const { slug } = params
 
 	if (typeof slug !== 'string') {
 		return {
@@ -57,7 +57,7 @@ export const getServerSideProps = async ({params}: GetServerSidePropsContext) =>
 	}
 }
 
-const Article: FC<PropsType> = ({article, errorMessage}) => {
+const Article: FC<PropsType> = ({ article, errorMessage }) => {
 	if (errorMessage || !article)
 		return <ErrorMessage message={errorMessage ?? 'Статья не найдена'}/>
 

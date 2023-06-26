@@ -1,17 +1,17 @@
-import {FC} from 'react'
+import { FC } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ArticlePreview from '@/components/ArticlePreview/ArticlePreview'
-import {useBlogArticlesInfiniteQuery} from '@/hooks/useBlogArticlesInfiniteQuery'
+import { useBlogArticlesInfiniteQuery } from '@/hooks/useBlogArticlesInfiniteQuery'
 import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
-import {errorMessage} from '@/utils/errorMessage'
+import { errorMessage } from '@/utils/errorMessage'
 
 import styles from './articleList.module.sass'
 
 const ArticleList: FC = () => {
-	const {data, error, fetchNextPage, hasNextPage, isLoading} = useBlogArticlesInfiniteQuery()
+	const { data, error, fetchNextPage, hasNextPage, isLoading } = useBlogArticlesInfiniteQuery()
 
 	if (error)
 		return <ErrorMessage message={errorMessage(error)}/>

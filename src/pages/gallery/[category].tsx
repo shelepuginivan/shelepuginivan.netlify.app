@@ -1,6 +1,6 @@
-import {Nunito} from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import Head from 'next/head'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 
 import CategoryImages from '@/components/CategoryImages/CategoryImages'
 import Container from '@/ui/Container/Container'
@@ -12,7 +12,7 @@ const nunito = Nunito({
 
 const Category = () => {
 	const router = useRouter()
-	const {category} = router.query as {category: string}
+	const { category } = router.query as {category: string}
 
 	const title = `Галерея${category ? ` - ${category}` : ''} | Иван Шелепугин`
 

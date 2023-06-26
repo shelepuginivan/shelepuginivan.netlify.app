@@ -1,6 +1,6 @@
-import {useInfiniteQuery} from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
-import {fetchProjects} from '@/api/projects'
+import { fetchProjects } from '@/api/projects'
 
 export const useProjectsInfiniteQuery = (imagesPerPage = 10) => useInfiniteQuery({
 	queryFn: ({ pageParam = 1 }) => fetchProjects(pageParam, imagesPerPage),

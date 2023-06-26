@@ -1,8 +1,8 @@
-import {Nunito, Roboto_Flex} from 'next/font/google'
-import {FC, useCallback, useState} from 'react'
+import { Nunito, Roboto_Flex } from 'next/font/google'
+import { FC, useCallback, useState } from 'react'
 
 import Button from '@/ui/Button/Button'
-import {getHost} from '@/utils/getHost'
+import { getHost } from '@/utils/getHost'
 
 import styles from './shareMenu.module.sass'
 
@@ -16,7 +16,7 @@ const robotoFlex = Roboto_Flex({
 	weight: '400'
 })
 
-const ShareMenu: FC<{slug: string}> = ({slug}) => {
+const ShareMenu: FC<{slug: string}> = ({ slug }) => {
 	const [header, setHeader] = useState<string>('Поделиться')
 	const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
 	const [message, setMessage] = useState<string>('')
@@ -51,7 +51,7 @@ const ShareMenu: FC<{slug: string}> = ({slug}) => {
 		}
 
 		try {
-			await navigator.share({url: shareLink})
+			await navigator.share({ url: shareLink })
 
 			setIsSuccess(true)
 			setHeader('Успех!')

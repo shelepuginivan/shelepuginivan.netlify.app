@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import {getHost} from '@/utils/getHost'
-import {GalleryCategory} from '@/utils/types/GalleryCategory'
+import { getHost } from '@/utils/getHost'
+import { GalleryCategory } from '@/utils/types/GalleryCategory'
 
 export const fetchAllGalleryCategories = async (): Promise<GalleryCategory[]> => {
 	const res = await axios.get(`${getHost()}/api/gallery`)

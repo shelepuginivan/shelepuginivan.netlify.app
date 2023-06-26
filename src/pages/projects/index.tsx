@@ -1,6 +1,6 @@
-import {Nunito} from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import Head from 'next/head'
-import {FC} from 'react'
+import { FC } from 'react'
 
 import ProjectsList from '@/components/ProjectsList/ProjectsList'
 import Container from '@/ui/Container/Container'

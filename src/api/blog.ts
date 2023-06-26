@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import {getHost} from '@/utils/getHost'
-import {Article} from '@/utils/types/Article'
+import { getHost } from '@/utils/getHost'
+import { Article } from '@/utils/types/Article'
 
 export const fetchArticleBySlug = async (slug: string): Promise<Article> => {
 	const res = await axios.get(`${getHost()}/api/blog/${slug}`)

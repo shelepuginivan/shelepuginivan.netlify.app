@@ -1,9 +1,9 @@
-import {Nunito, Roboto_Flex} from 'next/font/google'
+import { Nunito, Roboto_Flex } from 'next/font/google'
 import Link from 'next/link'
-import {FC} from 'react'
+import { FC } from 'react'
 
-import {imgToCssUrl} from '@/utils/imgToCssUrl'
-import {Article} from '@/utils/types/Article'
+import { imgToCssUrl } from '@/utils/imgToCssUrl'
+import { Article } from '@/utils/types/Article'
 
 import styles from './articlePreview.module.sass'
 
@@ -31,7 +31,7 @@ const ArticlePreview: FC<PropsType> = ({
 
 	return (
 		<Link href={`/blog/${slug}`} className={styles.articlePreview}>
-			<div className={styles.img} style={{backgroundImage}}></div>
+			<div className={styles.img} style={{ backgroundImage }}></div>
 			<div className={styles.description}>
 				<h2 className={nunito.className}>{title}</h2>
 				<p className={robotoFlex.className}>Опубликовано: {publicationDateString}</p>

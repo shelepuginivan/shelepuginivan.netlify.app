@@ -1,6 +1,6 @@
-import {Author, FeedOptions} from 'feed'
+import { Author, FeedOptions } from 'feed'
 
-import {getHost} from '@/utils/getHost'
+import { getHost } from '@/utils/getHost'
 
 export const FIRSTNAME_MAX_LENGTH = 64
 export const LASTNAME_MAX_LENGTH = 128

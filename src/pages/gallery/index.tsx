@@ -1,6 +1,6 @@
-import {Nunito} from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import Head from 'next/head'
-import {FC} from 'react'
+import { FC } from 'react'
 
 import GalleryCategoriesList from '@/components/GalleryCategoriesList/GalleryCategoriesList'
 import Container from '@/ui/Container/Container'

@@ -1,7 +1,7 @@
-import {MongoClient} from 'mongodb'
+import { MongoClient } from 'mongodb'
 
-import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
-import {Project} from '@/utils/types/Project'
+import { ServerExceptionFactory } from '@/server/ServerExceptionFactory'
+import { Project } from '@/utils/types/Project'
 
 export class ProjectService {
 	static async getAllProjects(page: number, projectsPerPage: number): Promise<Project[]> {

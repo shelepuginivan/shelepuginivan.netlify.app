@@ -1,6 +1,6 @@
-import {FC} from 'react'
+import { FC } from 'react'
 
-const Badge: FC<{href: string}> = ({href}) =>
+const Badge: FC<{href: string}> = ({ href }) =>
 	<img src={href} alt='' draggable={false}/>
 
 export default Badge

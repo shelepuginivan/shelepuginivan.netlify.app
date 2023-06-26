@@ -1,7 +1,7 @@
-import {NextApiRequest, NextApiResponse} from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-import {GalleryService} from '@/server/GalleryService'
-import {ServerException} from '@/server/ServerException'
+import { GalleryService } from '@/server/GalleryService'
+import { ServerException } from '@/server/ServerException'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
@@ -10,9 +10,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		res.status(200).json(allCategories)
 	} catch (error) {
 		if (error instanceof ServerException) {
-			return res.status(error.status).json({message: error.message})
+			return res.status(error.status).json({ message: error.message })
 		} else {
-			res.status(500).json({message: 'Внутренняя ошибка сервера'})
+			res.status(500).json({ message: 'Внутренняя ошибка сервера' })
 		}
 	}
 }

@@ -1,8 +1,8 @@
-import {Nunito} from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import Link from 'next/link'
-import {FC} from 'react'
+import { FC } from 'react'
 
-import {imgToCssUrl} from '@/utils/imgToCssUrl'
+import { imgToCssUrl } from '@/utils/imgToCssUrl'
 
 import styles from './contentCard.module.sass'
 
@@ -24,7 +24,7 @@ const ContentCard: FC<PropsType> = (props) => {
 		<Link
 			href={props.href}
 			className={styles.cardWrapper}
-			style={{backgroundImage}}
+			style={{ backgroundImage }}
 		>
 			<div className={styles.card}>
 				<h1 className={nunito.className}>{props.title}</h1>

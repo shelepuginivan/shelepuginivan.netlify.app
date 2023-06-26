@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import {FC} from 'react'
+import { FC } from 'react'
 
 import ArticleList from '@/components/ArticleList/ArticleList'
 import ArticleListHeader from '@/components/ArticleListHeader/ArticleListHeader'

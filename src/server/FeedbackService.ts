@@ -1,6 +1,6 @@
-import {MongoClient} from 'mongodb'
+import { MongoClient } from 'mongodb'
 
-import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
+import { ServerExceptionFactory } from '@/server/ServerExceptionFactory'
 
 export class FeedbackService {
 	static async sendFeedback(
