@@ -1,48 +1,22 @@
-import {FC, useCallback, useEffect, useState} from 'react'
+import {FC} from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import ArticlePreview from '@/components/ArticlePreview/ArticlePreview'
+import {useBlogArticlesInfiniteQuery} from '@/hooks/useBlogArticlesInfiniteQuery'
 import Center from '@/ui/Center/Center'
 import ErrorMessage from '@/ui/ErrorMessage/ErrorMessage'
 import Loader from '@/ui/Loader/Loader'
-import {Article} from '@/utils/types/Article'
+import {errorMessage} from '@/utils/errorMessage'
 
 import styles from './articleList.module.sass'
 
 const ArticleList: FC = () => {
-	const [currentPage, setCurrentPage] = useState<number>(1)
-	const [articles, setArticles] = useState<Omit<Article, 'text'>[] | null>(null)
-	const [errorMessage, setErrorMessage] = useState<string | null>(null)
-	const [hasMore, setHasMore] = useState<boolean>(true)
+	const {data, error, fetchNextPage, hasNextPage, isLoading} = useBlogArticlesInfiniteQuery()
 
-	const fetchArticles = useCallback(async () => {
-		const res = await fetch(`/api/blog?page=${currentPage}`)
+	if (error)
+		return <ErrorMessage message={errorMessage(error)}/>
 
-		const json = await res.json()
-
-		if (res.status >= 400) {
-			return setErrorMessage((json as Record<'message', string>).message)
-		}
-
-		if (json.length === 0) {
-			return setHasMore(false)
-		}
-
-		setArticles(prev => prev
-			? [...prev, ...json as Omit<Article, 'text'>[]]
-			: json
-		)
-		setCurrentPage(prev => prev + 1)
-	}, [currentPage])
-
-	useEffect(() => {
-		fetchArticles()
-	}, [])
-
-	if (errorMessage)
-		return <ErrorMessage message={errorMessage}/>
-
-	if (!articles) {
+	if (isLoading) {
 		return <Center>
 			<Loader/>
 		</Center>
@@ -51,22 +25,21 @@ const ArticleList: FC = () => {
 	return (
 		<InfiniteScroll
 			className={styles.list}
-			next={fetchArticles}
-			hasMore={hasMore}
+			next={fetchNextPage}
+			hasMore={Boolean(hasNextPage)}
 			loader={<div className={styles.loaderWrapper}>
 				<Loader/>
 			</div>}
-			dataLength={articles.length}
+			dataLength={data?.pages.length ?? 0}
 		>
-			{
-				articles?.map(
-					(article, index) =>
-						<ArticlePreview
-							key={index}
-							{...article}
-						/>
+			{data?.pages.map(articles =>
+				articles.map(article =>
+					<ArticlePreview
+						key={article.title}
+						{...article}
+					/>
 				)
-			}
+			)}
 		</InfiniteScroll>
 	)
 }
