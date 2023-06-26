@@ -1,4 +1,4 @@
-import {MongoClient} from 'mongodb'
+import {MongoClient, WithId} from 'mongodb'
 
 import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
 import {Image} from '@/utils/types/Image'
@@ -25,7 +25,7 @@ export class GalleryService {
 		category: string,
 		page: number,
 		imagesPerPage: number
-	): Promise<Image[]> {
+	): Promise<string[]> {
 		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
 			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
 		}
@@ -41,13 +41,13 @@ export class GalleryService {
 				.find({category})
 				.skip(imagesPerPage * (page - 1))
 				.limit(imagesPerPage)
-				.toArray()
+				.toArray() as WithId<Image>[]
 
 			if (!galleryItems) {
 				throw ServerExceptionFactory.notFound(`Категория ${category} не найдена`)
 			}
 
-			return galleryItems as unknown as Image[]
+			return galleryItems.map(item => item.url)
 		} finally {
 			await client.close()
 		}
