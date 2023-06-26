@@ -9,7 +9,7 @@ import styles from './projectCard.module.sass'
 type PropsType = {
 	title: string
 	description: string
-	previewImage: string | Record<'src', string>
+	previewUrl: string | Record<'src', string>
 	badges?: string[],
 	githubLink?: string,
 	demoLink?: string
@@ -21,7 +21,7 @@ const font = Roboto_Flex({
 })
 
 const ProjectCard: FC<PropsType> = (props) => {
-	const preview = imgToCssUrl(props.previewImage)
+	const preview = imgToCssUrl(props.previewUrl)
 
 	const githubLink = props.githubLink
 		? <a href={props.githubLink}><i className='icon-github'></i></a>
