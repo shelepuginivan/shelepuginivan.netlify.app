@@ -1,4 +1,4 @@
-import {MongoClient} from 'mongodb'
+import {MongoClient, WithId} from 'mongodb'
 
 import {ServerExceptionFactory} from '@/server/ServerExceptionFactory'
 import {Article} from '@/utils/types/Article'
@@ -20,7 +20,7 @@ export class ArticleService {
 				.sort('publicationTime', 'descending')
 				.skip((page - 1) * articlesPerPage)
 				.limit(articlesPerPage)
-				.toArray() as unknown as Article[]
+				.toArray() as WithId<Article>[]
 
 			return allArticles.map(article => {
 				const {title, slug, publicationTime, previewUrl} = article
@@ -47,7 +47,7 @@ export class ArticleService {
 
 		try {
 			const database = client.db(process.env.MONGO_DB_NAME)
-			const article = await database.collection('article').findOne({slug: articleSlug})
+			const article = await database.collection('article').findOne({slug: articleSlug}) as WithId<Article> | null
 			
 			if (!article)
 				throw ServerExceptionFactory.notFound('Статья не найдена')
