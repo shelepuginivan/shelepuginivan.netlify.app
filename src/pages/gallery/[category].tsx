@@ -12,7 +12,7 @@ const nunito = Nunito({
 
 const Category = () => {
 	const router = useRouter()
-	const {category} = router.query
+	const {category} = router.query as {category: string}
 
 	const title = `Галерея${category ? ` - ${category}` : ''} | Иван Шелепугин`
 
