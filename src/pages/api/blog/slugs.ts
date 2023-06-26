@@ -8,16 +8,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		const allSlugs = await ArticleService.getSlugs()
 		
 		res.status(200).json(allSlugs)
-	} catch (e) {
-		if (e instanceof ServerException) {
-			return res.status(e.status).json({message: e.message})
+	} catch (error) {
+		if (error instanceof ServerException) {
+			return res.status(error.status).json({message: error.message})
+		} else {
+			res.status(500).json({message: 'Внутренняя ошибка сервера'})
 		}
-
-		if (e instanceof Error) {
-			return res.status(500).json({message: e.message})
-		}
-
-		res.status(500).json({message: 'Внутренняя ошибка сервера'})
 	}
 }
 

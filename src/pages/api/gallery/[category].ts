@@ -24,9 +24,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		)
 
 		res.status(200).json(galleryItems)
-	} catch (e) {
-		if (e instanceof ServerException) {
-			res.status(e.status).json({message: e.message})
+	} catch (error) {
+		if (error instanceof ServerException) {
+			res.status(error.status).json({message: error.message})
 		} else {
 			res.status(500).json({message: 'Внутренняя ошибка сервера'})
 		}

@@ -19,10 +19,10 @@ const handler = async (
 
 	try {
 		validateFeedbackForm(firstname, lastname, email, feedback)
-	} catch (e) {
-		if (e instanceof Error) {
+	} catch (error) {
+		if (error instanceof Error) {
 			return res.status(400).json({
-				message: e.message
+				message: error.message
 			})
 		}
 	}
@@ -36,9 +36,9 @@ const handler = async (
 		)
 
 		res.status(200).end()
-	} catch (e) {
-		if (e instanceof ServerException) {
-			res.status(e.status).json({message: e.message})
+	} catch (error) {
+		if (error instanceof ServerException) {
+			res.status(error.status).json({message: error.message})
 		} else {
 			res.status(500).json({message: 'Внутренняя ошибка сервера'})
 		}

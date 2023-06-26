@@ -10,9 +10,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const projects = await ProjectService.getAllProjects(page, projectsPerPage)
 		res.status(200).json(projects)
-	} catch (e) {
-		if (e instanceof ServerException) {
-			res.status(e.status).json({message: e.message})
+	} catch (error) {
+		if (error instanceof ServerException) {
+			res.status(error.status).json({message: error.message})
 		} else {
 			res.status(500).json({message: 'Внутренняя ошибка сервера'})
 		}
