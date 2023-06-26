@@ -1,5 +1,6 @@
 import {GetServerSideProps} from 'next'
 
+import {fetchAllGalleryCategories, fetchAllSlugs} from '@/api/sitemap'
 import {getHost} from '@/utils/getHost'
 
 const sitemapLocation = (url: string) => {
@@ -10,27 +11,18 @@ const sitemapLocation = (url: string) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({res}) => {
-	const articlesResponse = await fetch(`${getHost()}/api/blog/slugs`)
-	const slugsJson = await articlesResponse.json() as unknown
+	let blogSlugsUrls, galleryCategoriesUrls
 
-	const categoriesResponse = await fetch(`${getHost()}/api/gallery/categories`)
-	const categoriesJson = await categoriesResponse.json() as unknown
+	try {
+		const blogSlugs = await fetchAllSlugs()
+		const galleryCategories = await fetchAllGalleryCategories()
 
-	const articles = (
-		Array.isArray(slugsJson) &&
-		slugsJson.length > 0 &&
-		slugsJson.every(item => typeof item === 'string')
-	)
-		? slugsJson.map(slug => `${getHost()}/blog/${slug}`)
-		: []
-
-	const galleryCategories = (
-		Array.isArray(categoriesJson) &&
-		categoriesJson.length > 0 &&
-		categoriesJson.every(item => typeof item === 'string')
-	)
-		? categoriesJson.map(category => `${getHost()}/gallery/${category}`)
-		: []
+		blogSlugsUrls = blogSlugs.map(slug => sitemapLocation(`${getHost()}/blog/${slug}`)).join('')
+		galleryCategoriesUrls = galleryCategories.map(category => sitemapLocation(`${getHost()}/gallery/${category.name}`)).join('')
+	} catch (error) {
+		blogSlugsUrls = ''
+		galleryCategoriesUrls = ''
+	}
 
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -43,11 +35,11 @@ export const getServerSideProps: GetServerSideProps = async ({res}) => {
 	<url>
 	   <loc>${getHost()}/gallery</loc>
 	</url>
-	${galleryCategories.map(sitemapLocation).join('')}
+	${galleryCategoriesUrls}
 	<url>
 	   <loc>${getHost()}/blog</loc>
 	</url>
-	${articles.map(sitemapLocation).join('')}
+	${blogSlugsUrls}
 </urlset>`
 
 	res.setHeader('Content-Type', 'text/xml')
