@@ -33,7 +33,7 @@ export const validateFeedbackForm = (feedback: unknown): Feedback => {
 	}
 
 	if (!emailRegexp.test(email)) {
-		throw new Error('Введите валидный email')
+		throw new BadRequest('Введите валидный email')
 	}
 
 	return feedback as Feedback
