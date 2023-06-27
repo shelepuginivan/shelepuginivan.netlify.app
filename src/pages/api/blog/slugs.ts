@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		res.status(200).json(allSlugs)
 	} catch (error) {
 		if (error instanceof ServerException) {
-			return res.status(error.status).json({ message: error.message })
+			res.status(error.status).json({ message: error.message })
 		} else {
 			res.status(500).json({ message: 'Внутренняя ошибка сервера' })
 		}
