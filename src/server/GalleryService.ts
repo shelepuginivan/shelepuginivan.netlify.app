@@ -1,12 +1,12 @@
 import { MongoClient, WithId } from 'mongodb'
 
-import { ServerExceptionFactory } from '@/server/ServerExceptionFactory'
+import { InternalServerError, NotFound } from '@/server/ServerException'
 import { Image } from '@/utils/types/Image'
 
 export class GalleryService {
 	static async getCategories(): Promise<string[]> {
 		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
-			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+			throw new InternalServerError('Внутренняя ошибка сервера')
 		}
 
 		const client = new MongoClient(process.env.MONGO_URI)
@@ -27,7 +27,7 @@ export class GalleryService {
 		imagesPerPage: number
 	): Promise<string[]> {
 		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
-			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+			throw new InternalServerError('Внутренняя ошибка сервера')
 		}
 
 		const client = new MongoClient(process.env.MONGO_URI)
@@ -44,7 +44,7 @@ export class GalleryService {
 				.toArray() as WithId<Image>[]
 
 			if (!galleryItems) {
-				throw ServerExceptionFactory.notFound(`Категория ${category} не найдена`)
+				throw new NotFound(`Категория ${category} не найдена`)
 			}
 
 			return galleryItems.map(item => item.url)
@@ -55,7 +55,7 @@ export class GalleryService {
 
 	static async getRandomImageUrlByCategory(category: string): Promise<string> {
 		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
-			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+			throw new InternalServerError('Внутренняя ошибка сервера')
 		}
 
 		const client = new MongoClient(process.env.MONGO_URI)
@@ -81,7 +81,7 @@ export class GalleryService {
 			const imageDocument = await image.next()
 
 			if (!imageDocument || !imageDocument.url) {
-				throw ServerExceptionFactory.badRequest(`категория ${category} не найдена`)
+				throw new NotFound(`категория ${category} не найдена`)
 			}
 
 			return imageDocument.url

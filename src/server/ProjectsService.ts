@@ -1,12 +1,12 @@
 import { MongoClient } from 'mongodb'
 
-import { ServerExceptionFactory } from '@/server/ServerExceptionFactory'
+import { InternalServerError } from '@/server/ServerException'
 import { Project } from '@/utils/types/Project'
 
 export class ProjectService {
 	static async getAllProjects(page: number, projectsPerPage: number): Promise<Project[]> {
 		if (!process.env.MONGO_URI || !process.env.MONGO_DB_NAME) {
-			throw ServerExceptionFactory.internalServerError('Внутренняя ошибка сервера')
+			throw new InternalServerError('Внутренняя ошибка сервера')
 		}
 
 		const client = new MongoClient(process.env.MONGO_URI)
