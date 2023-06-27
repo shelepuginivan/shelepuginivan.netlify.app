@@ -15,25 +15,9 @@ const handler = async (
 		return
 	}
 
-	const { firstname, lastname, email, feedback } = req.body
-
 	try {
-		validateFeedbackForm(firstname, lastname, email, feedback)
-	} catch (error) {
-		if (error instanceof Error) {
-			return res.status(400).json({
-				message: error.message
-			})
-		}
-	}
-
-	try {
-		await FeedbackService.sendFeedback(
-			firstname,
-			lastname,
-			email,
-			feedback
-		)
+		const feedback = validateFeedbackForm(req.body)
+		await FeedbackService.sendFeedback(feedback)
 
 		res.status(200).end()
 	} catch (error) {
