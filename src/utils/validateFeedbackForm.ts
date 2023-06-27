@@ -3,7 +3,27 @@ import { EMAIL_MAX_LENGTH, FEEDBACK_MAX_LENGTH, FIRSTNAME_MAX_LENGTH, LASTNAME_M
 import { Feedback } from '@/utils/types/Feedback'
 
 export const validateFeedbackForm = (feedback: unknown): Feedback => {
-	const { firstname, lastname, email, message } = feedback
+	if (
+		feedback === null ||
+		typeof feedback !== 'object' ||
+		!Object.hasOwn(feedback, 'firstname') ||
+		!Object.hasOwn(feedback, 'lastname') ||
+		!Object.hasOwn(feedback, 'email') ||
+		!Object.hasOwn(feedback, 'message')
+	) {
+		throw new BadRequest('Неверный формат данных')
+	}
+
+	const { firstname, lastname, email, message } = feedback as Record<keyof Feedback, unknown>
+
+	if (
+		typeof firstname !== 'string' ||
+		typeof lastname !== 'string' ||
+		typeof email !== 'string' ||
+		typeof message !== 'string'
+	) {
+		throw new BadRequest('Неверный формат данных')
+	}
 
 	const nameRegexp = /^[A-Za-zА-Яёа-я-]*$/
 	const emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
