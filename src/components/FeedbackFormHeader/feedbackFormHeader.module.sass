@@ -1,0 +1,16 @@
+.feedbackFormHeader
+	h1
+		font-size: xx-large
+
+		&[data-status=success]
+			color: darkgreen
+
+		&[data-status=error]
+			color: red
+
+	p
+		visibility: hidden
+		min-height: 30px
+
+		&[data-error=true]
+			visibility: visible

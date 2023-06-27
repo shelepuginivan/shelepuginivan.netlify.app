@@ -1,24 +1,3 @@
-@import 'src/styles/globals'
-
-.formWrapper
-	@extend .container
-
-	h1
-		font-size: xx-large
-
-		&[data-submitted=true]
-			color: darkgreen
-
-		&[data-submitted=false]
-			color: red
-
-	p
-		visibility: hidden
-		min-height: 30px
-
-		&[data-error=true]
-			visibility: visible
-
 .form
 	display: flex
 	flex-direction: column
