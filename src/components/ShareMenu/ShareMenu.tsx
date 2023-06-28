@@ -56,11 +56,11 @@ const ShareMenu: FC<{slug: string}> = ({ slug }) => {
 			setIsSuccess(true)
 			setHeader('Успех!')
 			setMessage('Спасибо, что поделились статьёй')
-		} catch (e) {
-			if (e instanceof DOMException) {
+		} catch (error) {
+			if (error instanceof DOMException) {
 				if (
-					e.code !== DOMException.ABORT_ERR &&
-					e.name !== 'ABORT_ERR'
+					error.code !== DOMException.ABORT_ERR &&
+					error.name !== 'ABORT_ERR'
 				) {
 					setIsSuccess(false)
 					setHeader('Ошибка!')
