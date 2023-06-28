@@ -17,9 +17,9 @@ const robotoFlex = Roboto_Flex({
 })
 
 const ShareMenu: FC<{slug: string}> = ({ slug }) => {
-	const [header, setHeader] = useState<string>('Поделиться')
+	const [header, setHeader] = useState('Поделиться')
 	const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
-	const [message, setMessage] = useState<string>('')
+	const [message, setMessage] = useState('')
 	
 	const shareLink = `${getHost()}/blog/${slug}`
 
@@ -73,13 +73,12 @@ const ShareMenu: FC<{slug: string}> = ({ slug }) => {
 	return (
 		<menu className={`${styles.menu} ${robotoFlex.className}`}>
 			<h1
-				className={nunito.className}
 				data-succeed={isSuccess}
-			>{header}</h1>
-			<p
-				className={styles.errorMessage}
-			>{message}</p>
-
+				className={nunito.className}
+			>
+				{header}
+			</h1>
+			<p className={styles.errorMessage}>{message}</p>
 			<Button onClick={share}>Поделиться</Button>
 			<p>или</p>
 			<Button onClick={clipUrl}>Скопировать ссылку</Button>
