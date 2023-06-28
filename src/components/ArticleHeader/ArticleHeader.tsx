@@ -17,17 +17,22 @@ const ArticleHeader: FC<PropsType> = ({
 	publicationTime,
 	slug,
 	title }) => {
-	const publicationTimeString = new Intl.DateTimeFormat('ru').format(publicationTime)
+	const publicationDate = new Date(publicationTime)
 	const textDownloadLink = `/api/blog/${slug}/download`
 
 	return (
 		<section className={styles.articleHeader}>
 			<div className={styles.info}>
-				<p>Опубликовано: {publicationTimeString}</p>
+				<p>
+					Опубликовано:
+					<time dateTime={publicationDate.toISOString()}>
+						{publicationDate.toLocaleDateString('ru')}
+					</time>
+				</p>
 				<a href={textDownloadLink}>Скачать текст</a>
 			</div>
 			<h1 className={nunito.className}>{title}</h1>
-			<img src={previewUrl} alt=''/>
+			<img src={previewUrl} alt='Article preview'/>
 		</section>
 	)
 }
