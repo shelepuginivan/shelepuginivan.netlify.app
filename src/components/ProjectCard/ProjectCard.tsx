@@ -29,7 +29,7 @@ const ProjectCard: FC<PropsType> = ({
 }) => {
 	return (
 		<div className={`${styles.card} ${font.className}`}>
-			<img src={previewUrl} alt='preview' className={styles.img}/>
+			<img src={previewUrl} alt='Project preview' className={styles.img}/>
 			<div className={styles.content}>
 				<h2>{title}</h2>
 				<p>{description}</p>
